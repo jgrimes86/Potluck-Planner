@@ -31,7 +31,7 @@ class Signup(Resource):
 
     def post(self):
         data = request.json
-        user = FamilyMember(name=data['firstName'], email=data['email'], username=data['username'])
+        user = FamilyMember(first_name=data['firstName'], last_name=data['lastName'], email=data['email'], username=data['username'])
         db.session.add(user)
         db.session.commit()
         return make_response(user.to_dict(), 200)

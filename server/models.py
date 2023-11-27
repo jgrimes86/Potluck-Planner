@@ -11,7 +11,8 @@ class FamilyMember(db.Model, SerializerMixin):
     __tablename__ = 'family_members'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
+    first_name = db.Column(db.String)
+    last_name = db.Column(db.String)
     email = db.Column(db.String)
     # QUESTION: Do we need a name and username? Or just a username?
     username = db.Column(db.String)
