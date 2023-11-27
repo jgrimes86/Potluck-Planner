@@ -3,80 +3,61 @@ import {useState} from "react";
 import {useFormik} from "formik";
 import * as yup from "yup";
 
-// const signupFormStart = {
-//     "firstName": "",
-//     "lastName": "",
-//     "username": "",
-//     "email": ""
-// }
-
-const loginFormStart = {
-    "username": ""
-}
 
 function Login({ handleLogin }) {
-    // const [signupData, setSignupData] = useState(signupFormStart)
-    const [loginData, setLoginData] = useState(loginFormStart)
     const [signup, setSignup] = useState(false)
-
-    // Login form will allow existing user to log into their account.  Connected to a 'check authorization' method in server/app.
-    function handleLoginChange(event) {
-        setLoginData({
-            ...loginData,
-            [event.target.name]: event.target.value
-        })
-    }
-
-    function handleLoginSubmit(event) {
-        event.preventDefault()
-        fetch('http://localhost:5555/login', {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(loginData)
-        })
-        .then((r) => {
-            if (r.ok) {
-                r.json().then(user => handleLogin(user))
-            }
-        })
-        setLoginData(loginFormStart)
-    }
-    // console.log(loginData)
 
     function handleClick() {
         setSignup(!signup)
     }
 
+    // Login validation, formik, and form
+    const loginSchema = yup.object().shape({
+        username: yup.string().required("Must enter a username"),
+    })
+
+    const loginFormik = useFormik({
+        initialValues: {
+            username: '',
+        },
+        validationSchema: loginSchema,
+        validateOnChange: false,
+        onSubmit: values => {
+            fetch('http://localhost:5555/login', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(values, null, 2)
+            })
+            .then((r) => {
+                if (r.ok) {
+                    r.json().then(user => handleLogin(user))
+                }
+            })
+        },
+    })
+
     const loginForm = () => {
         return (
             <>
                 <h1>Login</h1>
-                <form onSubmit={handleLoginSubmit}>
+                <form onSubmit={loginFormik.handleSubmit}>
                     <label htmlFor="username">Enter User Name:</label>
                     <input 
                         type="text" 
                         name="username" 
-                        value={loginData.username} 
-                        onChange={handleLoginChange} 
+                        value={loginFormik.values.username} 
+                        onChange={loginFormik.handleChange} 
                     />
-                    <input type="submit" />
+                    <button type="submit" >Log In</button>
                 </form>
                 <button onClick={handleClick} >Sign Up</button>
             </>
         )
     }
 
-    // Signup will create a new user and log them in.  Connected to a 'create user' route in server/app and then to an automatic login route.
-    // function handleSignupChange(event) {
-    //     setSignupData({
-    //         ...signupData,
-    //         [event.target.name]: event.target.value
-    //     })
-    // }
-    // console.log(signupData)
-
+    // Signup validation, form, and formik
     const signupSchema = yup.object().shape({
         firstName: yup.string().required("Must enter a first name").max(15),
         lastName: yup.string().required("Must enter a last name").max(15),
@@ -108,11 +89,6 @@ function Login({ handleLogin }) {
             })
         },
     })
-
-    // function handleSignupSubmit(event) {
-    //     event.preventDefault()
-    //     setSignupData(signupFormStart)
-    // }
 
     const signupForm = () => {
         return(
