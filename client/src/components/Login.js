@@ -2,26 +2,46 @@
 import {useState} from "react";
 
 const signupFormStart = {
-    firstName: "",
-    lastName: "",
-    username: "",
-    email: ""
+    "firstName": "",
+    // "lastName": "",
+    "username": "",
+    "email": ""
 }
 
-function Login() {
+const loginFormStart = {
+    "username": ""
+}
+
+function Login({ handleLogin }) {
     const [signupData, setSignupData] = useState(signupFormStart)
-    const [loginData, setLoginData] = useState("")
+    const [loginData, setLoginData] = useState(loginFormStart)
     const [signup, setSignup] = useState(false)
 
+    // Login form will allow existing user to log into their account.  Connected to a 'check authorization' method in server/app.
     function handleLoginChange(event) {
-        setLoginData(event.target.value)
+        setLoginData({
+            ...loginData,
+            [event.target.name]: event.target.value
+        })
     }
 
-    function handleLogin(event) {
+    function handleLoginSubmit(event) {
         event.preventDefault()
-        console.log(loginData)
-        setLoginData("")
+        fetch('http://localhost:5555/login', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(loginData)
+        })
+        .then((r) => {
+            if (r.ok) {
+                r.json().then(user => handleLogin(user))
+            }
+        })
+        setLoginData(loginFormStart)
     }
+    // console.log(loginData)
 
     function handleClick() {
         setSignup(!signup)
@@ -31,12 +51,12 @@ function Login() {
         return (
             <>
                 <h1>Login</h1>
-                <form onSubmit={handleLogin}>
+                <form onSubmit={handleLoginSubmit}>
                     <label htmlFor="username">Enter User Name:</label>
                     <input 
                         type="text" 
                         name="username" 
-                        value={loginData} 
+                        value={loginData.username} 
                         onChange={handleLoginChange} 
                     />
                     <input type="submit" />
@@ -46,17 +66,29 @@ function Login() {
         )
     }
 
+    // Signup will create a new user and log them in.  Connected to a 'create user' route in server/app and then to an automatic login route.
     function handleSignupChange(event) {
         setSignupData({
             ...signupData,
             [event.target.name]: event.target.value
         })
     }
-    console.log(signupData)
+    // console.log(signupData)
 
     function handleSignupSubmit(event) {
         event.preventDefault()
-        console.log(signupData)
+        fetch('http://localhost:5555/signup', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(signupData)
+        })
+        .then((r) => {
+            if (r.ok) {
+                r.json().then(user => handleLogin(user))
+            }
+        })
         setSignupData(signupFormStart)
     }
 
@@ -72,13 +104,13 @@ function Login() {
                         value={signupData.firstName}
                         onChange={handleSignupChange}
                     />
-                    <label htmlFor="lastName">Enter Last Name:</label>
+                    {/* <label htmlFor="lastName">Enter Last Name:</label>
                     <input 
                         type="text"
                         name="lastName"
                         value={signupData.lastName}
                         onChange={handleSignupChange}
-                    />
+                    /> */}
                     <label htmlFor="username">Enter User Name:</label>
                     <input 
                         type="text" 
