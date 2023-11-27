@@ -46,6 +46,17 @@ class Logout(Resource):
 
 api.add_resource(Logout, '/logout')
 
+class CheckSession(Resource):
+    
+    def get(self):
+        user = FamilyMember.query.filter_by(id = session.get('user_id')).first()
+        if user:
+            return user.to_dict()
+        else:
+            return {'message': '401: Not Authorized'}, 401
+
+api.add_resource(CheckSession, '/check_session')
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

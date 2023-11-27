@@ -8,6 +8,15 @@ import Event from "./Event";
 function App() {
   const [user, setUser] = useState(null)
 
+  useEffect(() => {
+    fetch("http://localhost:5555/check_session")
+    .then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
+
   function handleLogin(user) {
     setUser(user)
   }
@@ -22,15 +31,17 @@ function App() {
     })
   }
 
-  return (
-    <>
-      <Login handleLogin={handleLogin} />
-      <EventMenu />
-      <Event />
-      <button onClick={handleLogout}>Log Out</button>
-    </>
-  )
-
+  if (user) {
+    return (
+      <>
+        <EventMenu />
+        <Event />
+        <button onClick={handleLogout}>Log Out</button>
+      </>
+    )
+  } else {
+    return <Login handleLogin={handleLogin} />
+  }
 }
 
 export default App;
