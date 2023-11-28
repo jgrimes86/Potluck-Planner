@@ -32,7 +32,7 @@ function AddFamily() {
             })
             .then((r) => {
                 if (r.ok) {
-                    r.json.then(familyMember => {
+                    r.json().then(familyMember => {
                         link_event_and_family_member(familyMember);
                         addFamilyFormik.resetForm()
                     })
@@ -52,7 +52,7 @@ function AddFamily() {
             // MUST GET EVENT ID FROM EVENT
             body: JSON.stringify({
                 family_member_id: familyMember.id,
-                event_id: familyEvent.id
+                event_id: 1
             })
         })
     }
