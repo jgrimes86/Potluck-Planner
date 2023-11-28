@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import EventMenu from "./EventMenu";
 import Login from "./Login";
 import Event from "./Event";
+import ManageGuests from "./ManageGuests";
 
 function App() {
   const [user, setUser] = useState(null)
@@ -36,6 +37,7 @@ function App() {
       <>
         <EventMenu />
         <Event />
+        <ManageGuests />
         <button onClick={handleLogout}>Log Out</button>
       </>
     )
