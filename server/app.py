@@ -9,7 +9,7 @@ from flask_restful import Resource
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import FamilyMember, Course, Food
+from models import FamilyMember, Event, Food, Organizer
 
 # Views go here!
 
@@ -17,11 +17,13 @@ from models import FamilyMember, Course, Food
 def index():
     return '<h1>Project Server</h1>'
 
+# LOGIN PAGE
+
 class Login(Resource):
     
     def post(self):
         username = request.json['username']
-        user = FamilyMember.query.filter_by(username = username).first()
+        user = Organizer.query.filter_by(username = username).first()
         session['user_id'] = user.id
         return make_response(user.to_dict(), 200)
 
@@ -31,7 +33,7 @@ class Signup(Resource):
 
     def post(self):
         data = request.json
-        user = FamilyMember(first_name=data['firstName'], last_name=data['lastName'], email=data['email'], username=data['username'])
+        user = Organizer(first_name=data['firstName'], last_name=data['lastName'], email=data['email'], username=data['username'])
         db.session.add(user)
         db.session.commit()
         return make_response(user.to_dict(), 200)
@@ -49,7 +51,7 @@ api.add_resource(Logout, '/logout')
 class CheckSession(Resource):
     
     def get(self):
-        user = FamilyMember.query.filter_by(id = session.get('user_id')).first()
+        user = Organizer.query.filter_by(id = session.get('user_id')).first()
         if user:
             return user.to_dict()
         else:
@@ -57,6 +59,18 @@ class CheckSession(Resource):
 
 api.add_resource(CheckSession, '/check_session')
 
+# EVENTS PAGE
+
+class FamilyMembers(Resource):
+
+    def post(self):
+        data = request.json
+        new_member = FamilyMember(first_name=data['firstName'], last_name=data['lastName'], email=data['email'])
+        db.session.add(new_member)
+        db.session.commit()
+        return make_response(new_member.to_dict(), 200)
+
+api.add_resource(FamilyMembers, '/family_members')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
