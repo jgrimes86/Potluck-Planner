@@ -4,9 +4,9 @@
 function Event() {
 
     // useEffet for a fetch GET request to get the rows from foods table that match the event ID
-    useEffect(() => {
+    // useEffect(() => {
         
-    })
+    // })
     // from rows of foods table, map through array and create React components (<GuestCard />) listing Family Member and whether they are bringing a food
         // if bringing food: list food next to name
         // if not yet bringing food: include form for adding food (Formik form in the component)
@@ -16,7 +16,7 @@ function Event() {
     return (
         <div>
             <h1>Event</h1>
-            <GuestCard />
+            {/* <GuestCard /> */}
             
         </div>
     )

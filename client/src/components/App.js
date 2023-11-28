@@ -21,7 +21,7 @@ function App() {
   function handleLogin(user) {
     setUser(user)
   }
-  console.log('User: ', user)
+  // console.log('User: ', user)
 
   function handleLogout() {
     fetch('http://localhost:5555/logout')

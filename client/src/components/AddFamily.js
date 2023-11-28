@@ -1,12 +1,19 @@
 
+import { useState, useEffect } from "react";
 import {useFormik} from "formik";
 import * as yup from "yup";
 
 function AddFamily() {
-
+    const [invitedFamily, setInvitedFamily] = useState([])
 
     // NEED TO HAVE A PROP FOR THE EVENT THAT CAN BE USED TO CREATE foods TABLE ROW
 
+/////////////////////////////   START OF IMPORT PRIOR INVITES ////////////////////
+
+/////////////////////////////   END OF IMPORT PRIOR INVITES ////////////////////
+
+
+/////////////////////////////   START OF ADD FAMILY MEMBER ////////////////////
     // form for add family member to event
     const addFamilySchema = yup.object().shape({
         firstName: yup.string().required("Must enter a first name").max(15),
@@ -34,6 +41,7 @@ function AddFamily() {
                 if (r.ok) {
                     r.json().then(familyMember => {
                         link_event_and_family_member(familyMember);
+                        setInvitedFamily([...invitedFamily, familyMember])
                         addFamilyFormik.resetForm()
                     })
                 }
@@ -56,11 +64,41 @@ function AddFamily() {
             })
         })
     }
+/////////////////////////////   END OF ADD FAMILY MEMBER ////////////////////
+
+
+
+/////////////////////////////   START OF MAP OF FAMILY MEMBERS ////////////////////
+    useEffect(() => {
+        let event_id=1
+        fetch('http://localhost:5555/family_members/'+event_id)
+        .then(r => {
+            if (r.ok) {
+                r.json().then(data => setInvitedFamily(data))
+            }
+        })
+    }, [])
+    // console.log(invitedFamily)
+
+    const familyList = invitedFamily.map(fm => {
+        return (
+            <li key={fm.id}>
+                <span>{`${fm.first_name} ${fm.last_name}`}</span>
+                <button>Remove Guest</button>
+            </li>
+        )
+    })
+
+/////////////////////////////   END OF MAP OF FAMILY MEMBERS ////////////////////
+
 
     return (
         <div>
+            
             <h1>Add Family Members</h1>
-
+            <ul>
+                {familyList}
+            </ul>
             <div>
                 <h3>Add Family Member</h3>
                 <form onSubmit={addFamilyFormik.handleSubmit}>

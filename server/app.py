@@ -83,8 +83,14 @@ class Foods(Resource):
 
 api.add_resource(Foods, '/foods')
 
+class InvitedFamilyMembers(Resource):
 
+    def get(self, event_id):
+        family_members = db.session.query(FamilyMember).join(Food, FamilyMember.id == Food.family_member_id).filter(Food.event_id == event_id).all()
+        fm_list = [fm.to_dict() for fm in family_members]
+        return make_response(fm_list, 200)
 
+api.add_resource(InvitedFamilyMembers, '/family_members/<int:event_id>')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
