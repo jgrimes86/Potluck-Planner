@@ -2,11 +2,11 @@
 import {useState} from "react";
 import {useFormik} from "formik";
 import * as yup from "yup";
-import { useOutletContext } from "react-router-dom";
+// import { useOutletContext } from "react-router-dom";
 
 
-function Login() {
-    const {handleLogin} = useOutletContext();
+function Login({handleLogin}) {
+    // const {handleLogin} = useOutletContext();
     const [signup, setSignup] = useState(false)
 
     function handleClick() {

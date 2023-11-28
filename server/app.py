@@ -34,6 +34,7 @@ class Signup(Resource):
         user = FamilyMember(first_name=data['firstName'], last_name=data['lastName'], email=data['email'], username=data['username'])
         db.session.add(user)
         db.session.commit()
+        session['user_id'] = user.id
         return make_response(user.to_dict(), 200)
 
 api.add_resource(Signup, '/signup')
@@ -48,14 +49,14 @@ api.add_resource(Logout, '/logout')
 
 class CheckSession(Resource):
     
-    def get(self):
-        user = FamilyMember.query.filter_by(id = session.get('user_id')).first()
-        if user:
+    def get(self, user_id):
+        user = FamilyMember.query.filter_by(id = user_id).first()
+        if user and (user.id == session.get('user_id')):
             return user.to_dict()
         else:
             return {'message': '401: Not Authorized'}, 401
 
-api.add_resource(CheckSession, '/check_session')
+api.add_resource(CheckSession, '/check_session/<int:user_id>')
 
 
 if __name__ == '__main__':

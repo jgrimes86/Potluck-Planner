@@ -8,17 +8,22 @@ const initialState ={
 }
 
 function Event() {
-    const {setUser} = useOutletContext();
+    const {user} = useOutletContext();
     const [state, setState] = useState(initialState)
 
     useEffect(() => {
         setState(initialState);
-        fetch('http://localhost:5555/check_session')
+        let user_id
+        if (user) {
+            user_id = user.id
+        } else {
+            user_id = 0
+        }
+        fetch('http://localhost:5555/check_session/'+user_id)
         .then((r) => {
             if (r.ok) {
                 r.json().then((user) => {
                     setState({status: "resolved", error: null});
-                    setUser(user)
                 })
             } else {
                 r.json().then(error => {

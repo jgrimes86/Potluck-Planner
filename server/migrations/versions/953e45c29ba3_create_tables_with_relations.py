@@ -1,8 +1,8 @@
-"""create tables and table relationships
+"""create tables with relations
 
-Revision ID: 9c2e9cedd4ba
+Revision ID: 953e45c29ba3
 Revises: 
-Create Date: 2023-11-27 11:19:19.107462
+Create Date: 2023-11-27 19:38:58.898569
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '9c2e9cedd4ba'
+revision = '953e45c29ba3'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -25,7 +25,8 @@ def upgrade():
     )
     op.create_table('family_members',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(), nullable=True),
+    sa.Column('first_name', sa.String(), nullable=True),
+    sa.Column('last_name', sa.String(), nullable=True),
     sa.Column('email', sa.String(), nullable=True),
     sa.Column('username', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id')

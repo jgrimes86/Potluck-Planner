@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, Switch, Route } from "react-router-dom";
 
-import EventMenu from "./EventMenu";
+// import EventMenu from "./EventMenu";
 import Login from "./Login";
-import Event from "./Event";
+// import Event from "./Event";
 
 function App() {
   const [user, setUser] = useState(null)
@@ -31,6 +31,22 @@ function App() {
     })
   }
 
+  const context = {
+    user
+  }
+
+  if (user) {
+    return (
+      <div>
+        <Outlet context={context} />
+        <button onClick={handleLogout}>Log Out</button>
+      </div>
+    )
+  } else {
+    return <Login handleLogin={handleLogin} />
+  }
+
+
   // if (user) {
   //   return (
   //     <>
@@ -43,15 +59,15 @@ function App() {
   //   return <Login handleLogin={handleLogin} />
   // }
 
-  const context = {
-    handleLogin,
-    handleLogout,
-    setUser
-  }
+  // const context = {
+  //   handleLogin,
+  //   handleLogout,
+  //   setUser
+  // }
 
-  return (
-    <Outlet context={context} />
-  )
+  // return (
+  //   <Outlet context={context} />
+  // )
 
 }
 
