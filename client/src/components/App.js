@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 
-import EventMenu from "./EventMenu";
 import Login from "./Login";
+import EventMenu from "./EventMenu";
+import AddFamily from "./AddFamily";
 import Event from "./Event";
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
     return (
       <>
         <EventMenu />
+        <AddFamily />
         <Event />
         <button onClick={handleLogout}>Log Out</button>
       </>
