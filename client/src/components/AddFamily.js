@@ -4,13 +4,10 @@ import * as yup from "yup";
 
 function AddFamily() {
 
+
+    // NEED TO HAVE A PROP FOR THE EVENT THAT CAN BE USED TO CREATE foods TABLE ROW
+
     // form for add family member to event
-
-    // show list of family members invited to event, options to add, change, or delete food items for each guest
-
-    // lists of foods being brought for each course
-
-
     const addFamilySchema = yup.object().shape({
         firstName: yup.string().required("Must enter a first name").max(15),
         lastName: yup.string().required("Must enter a last name").max(15),
@@ -35,11 +32,30 @@ function AddFamily() {
             })
             .then((r) => {
                 if (r.ok) {
-                    addFamilyFormik.resetForm()
+                    r.json.then(familyMember => {
+                        link_event_and_family_member(familyMember);
+                        addFamilyFormik.resetForm()
+                    })
                 }
             })
         },
     })
+
+    // create new foods table row to link event and family_member
+    function link_event_and_family_member(familyMember) {
+        
+        fetch('http://localhost:5555/foods', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            // MUST GET EVENT ID FROM EVENT
+            body: JSON.stringify({
+                family_member_id: familyMember.id,
+                event_id: familyEvent.id
+            })
+        })
+    }
 
     return (
         <div>

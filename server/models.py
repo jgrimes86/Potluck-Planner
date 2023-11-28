@@ -34,7 +34,7 @@ class Event(db.Model, SerializerMixin):
     
     family_member = association_proxy('foods', 'family_member')
 
-    serialize_rules = ('-foods.event',)
+    serialize_rules = ('-foods.event', '-organizer.events')
 
     def __repr__(self):
         return f'<event {self.id}: {self.name}>'
@@ -70,6 +70,8 @@ class Organizer(db.Model, SerializerMixin):
     username = db.Column(db.String)
 
     events = db.relationship('Event', back_populates='organizer')
+
+    serialize_rules=('-events.organizer',)
 
     def __repr__(self):
         return f'<Organizer {self.id}: {self.first_name} {self.last_name}>'

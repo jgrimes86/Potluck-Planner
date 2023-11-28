@@ -59,7 +59,7 @@ class CheckSession(Resource):
 
 api.add_resource(CheckSession, '/check_session')
 
-# EVENTS PAGE
+# ADD FAMILY PAGE
 
 class FamilyMembers(Resource):
 
@@ -71,6 +71,20 @@ class FamilyMembers(Resource):
         return make_response(new_member.to_dict(), 200)
 
 api.add_resource(FamilyMembers, '/family_members')
+
+class Foods(Resource):
+
+    def post(self):
+        data = request.json
+        new_food = Food(family_member_id=data['family_member_id'], event_id=data['event_id'])
+        db.session.add(new_food)
+        db.session.commit()
+        return make_response(new_food.to_dict(), 200)
+
+api.add_resource(Foods, '/foods')
+
+
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
