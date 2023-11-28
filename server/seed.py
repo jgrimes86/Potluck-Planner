@@ -38,4 +38,9 @@ with app.app_context():
     db.session.add_all([fm1, fm2])
     db.session.commit()
 
+    f1 = Food(family_member_id=1, event_id=1)
+    f2 = Food(family_member_id=2, event_id=1)
+
+    db.session.add_all([f1, f2])
+    db.session.commit()
     
