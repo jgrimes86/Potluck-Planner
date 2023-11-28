@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Outlet, Switch, Route } from "react-router-dom";
 
 import EventMenu from "./EventMenu";
 import Login from "./Login";
@@ -31,17 +31,28 @@ function App() {
     })
   }
 
-  if (user) {
-    return (
-      <>
-        <EventMenu />
-        <Event />
-        <button onClick={handleLogout}>Log Out</button>
-      </>
-    )
-  } else {
-    return <Login handleLogin={handleLogin} />
+  // if (user) {
+  //   return (
+  //     <>
+  //       <EventMenu />
+  //       <Event />
+  //       <button onClick={handleLogout}>Log Out</button>
+  //     </>
+  //   )
+  // } else {
+  //   return <Login handleLogin={handleLogin} />
+  // }
+
+  const context = {
+    handleLogin,
+    handleLogout,
+    setUser
   }
+
+  return (
+    <Outlet context={context} />
+  )
+
 }
 
 export default App;
