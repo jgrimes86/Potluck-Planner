@@ -17,6 +17,17 @@ function EventMenu() {
       .catch((error) => console.error("Error fetching events:", error));
   }, []);
 
+  const handleDelete = (id) => {
+    fetch("http://localhost:5555/events/" + id, {
+      method: "DELETE"
+    })
+    .then (r => {
+        if (r.ok) {setEvents(events.filter(event => {
+          if(event.id !== id ) return event
+        }))}
+    })
+  }
+
   return (
     <div>
       <h1>Event Menu</h1>
@@ -25,7 +36,7 @@ function EventMenu() {
           // Use Link to make each event clickable and navigate to the Event page
           <li key={event.id}>
             <Link to={`/event/${event.id}`}>{event.name}</Link>
-            <button onClick={() => onDelete(event.id)}>Delete</button>
+            <button onClick={() => handleDelete(event.id)}>Delete</button>
           </li>
         ))}
       </ul>

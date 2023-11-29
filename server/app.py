@@ -176,6 +176,18 @@ class Events(Resource):
 
 api.add_resource(Events, '/events')
 
+class EventById(Resource):
+    def delete(self, id):
+        event = Event.query.filter_by(id=id).first()
+        db.session.delete(event)
+        db.session.commit()
+        return make_response({},204)
+
+
+
+
+api.add_resource(EventById, '/events/<id>')
+
 @app.route('/events/<int:event_id>', methods=['GET', 'DELETE'])
 def get_or_delete_event(event_id):
     if request.method == 'GET':
