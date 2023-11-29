@@ -95,23 +95,24 @@ class Foods(Resource):
 
     def post(self):
         data = request.json
+
+        food_name = data.get('foodName') or data.get('name')
+        family_member_id = data.get('familyMemberId')
+        event_id = data.get('eventId')
+
+        if not food_name or not family_member_id or not event_id:
+            return {'error': 'Incomplete data provided'}, 400
+
         new_food = Food(
-            name=data['foodName'],
-            family_member_id=data['familyMemberId'],
-            event_id=data['eventId']
+            name=food_name,
+            family_member_id=family_member_id,
+            event_id=event_id
         )
+
         db.session.add(new_food)
         db.session.commit()
-        return make_response(new_food.to_dict(), 200)
 
-    def delete(self, food_id):
-        food = Food.query.get(food_id)
-        if food:
-            db.session.delete(food)
-            db.session.commit()
-            return make_response({'message': 'Food deleted successfully'}, 200)
-        else:
-            return {'message': 'Food not found'}, 404
+        return make_response(new_food.to_dict(), 200)
 
 api.add_resource(Foods, '/foods', '/foods/<int:food_id>')
 
