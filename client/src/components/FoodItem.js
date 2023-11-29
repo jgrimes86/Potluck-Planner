@@ -5,7 +5,7 @@ function FoodItem({food, handleDeleteFood, handleChangeFood}) {
     const [changeForm, setChangeForm] = useState(false)
     const [foodState, setFoodState] = useState(food.name)
 
-    console.log(food.name)
+    console.log(food)
 
     const changeFoodButton = () => {
         return <button onClick={() => setChangeForm(true)}>Change Food</button>

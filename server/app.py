@@ -123,7 +123,13 @@ class Foods(Resource):
         db.session.add(new_food)
         db.session.commit()
 
-        return make_response(new_food.to_dict(), 200)
+        response_dict = {
+            "id": new_food.id,
+            "name": new_food.name,
+            "family_member_name": new_food.family_member.first_name + " " + new_food.family_member.last_name
+        }
+
+        return make_response(response_dict, 200)
 
 api.add_resource(Foods, '/foods')
 

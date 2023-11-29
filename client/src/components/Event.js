@@ -66,6 +66,10 @@ function Event() {
     })
   }
 
+  function handleNewFood(newFood) {
+    setFoods([...foods, newFood])
+  }
+
 
   const foodList = foods.map(food => {
       if (food) {
@@ -76,7 +80,7 @@ function Event() {
   return (
     <div>
       {event? <h1>{event.name}</h1> : null}
-      <FoodForm eventId={id} />
+      <FoodForm eventId={id} handleNewFood={handleNewFood} />
 
       <h2>Foods:</h2>
       <ul>
