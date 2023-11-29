@@ -25,6 +25,7 @@ function EventMenu() {
           // Use Link to make each event clickable and navigate to the Event page
           <li key={event.id}>
             <Link to={`/event/${event.id}`}>{event.name}</Link>
+            <button onClick={() => onDelete(event.id)}>Delete</button>
           </li>
         ))}
       </ul>
