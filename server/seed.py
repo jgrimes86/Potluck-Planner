@@ -28,17 +28,21 @@ with app.app_context():
     db.session.add_all([o1, o2])
     db.session.commit()
 
-    e1 = Event(name='Christmas Dinner', organizer=o1)
-    e2 = Event(name='Bacherlor Party', organizer=o2)
 
+    e1 = Event(name='Thanksgiving Dinner', organizer_id=1)
+    e2 = Event(name='Christmas Dinner', organizer_id=1)
+    
     db.session.add_all([e1, e2])
     db.session.commit()
 
+
     fm1 = FamilyMember(first_name="Betsy", last_name="Ross", email="email@email.com")
     fm2 = FamilyMember(first_name="Aaron", last_name="Burr", email="email@email.com")
+    fm3 = FamilyMember(first_name="Winston", last_name="Churchill", email="email@email.com")
 
-    db.session.add_all([fm1, fm2])
+    db.session.add_all([fm1, fm2, fm3])
     db.session.commit()
+
 
     f1 = Food(family_member_id=1, event_id=1)
     f2 = Food(family_member_id=2, event_id=1)

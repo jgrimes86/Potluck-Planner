@@ -45,6 +45,11 @@ class CheckSession(Resource):
 api.add_resource(CheckSession, '/check_session')
 
 class FamilyMembers(Resource):
+
+    def get(self):
+        members = [fm.to_dict() for fm in FamilyMember.query.all()]
+        return make_response(members, 200)
+
     def post(self):
         data = request.json
         new_member = FamilyMember(first_name=data['firstName'], last_name=data['lastName'], email=data['email'])
@@ -53,6 +58,16 @@ class FamilyMembers(Resource):
         return make_response(new_member.to_dict(), 200)
 
 api.add_resource(FamilyMembers, '/family_members')
+
+class FamilyMembersById(Resource):
+
+    def delete(self, id):
+        fm = FamilyMember.query.filter_by(id = id).first()
+        db.session.delete(fm)
+        db.session.commit()
+        return make_response({}, 204)
+
+api.add_resource(FamilyMembersById, '/family_members/<int:id>')
 
 class FamilyMembersList(Resource):
     def get(self):
@@ -66,7 +81,18 @@ class FamilyMembersList(Resource):
 
 api.add_resource(FamilyMembersList, '/family_members')
 
+class InvitedFamilyMembers(Resource):
+
+    def get(self, event_id):
+        family_members = db.session.query(FamilyMember).join(Food, FamilyMember.id == Food.family_member_id).filter(Food.event_id == event_id).all()
+        fm_list = [fm.to_dict() for fm in family_members]
+        return make_response(fm_list, 200)
+
+api.add_resource(InvitedFamilyMembers, '/family_members/<int:event_id>')
+
+
 class Foods(Resource):
+
     def get(self):
         event_id = request.args.get('event_id')
         foods = Food.query.filter_by(event_id=event_id).all()
@@ -80,25 +106,56 @@ class Foods(Resource):
 
     def post(self):
         data = request.json
+
+        food_name = data.get('foodName') or data.get('name')
+        family_member_id = data.get('familyMemberId')
+        event_id = data.get('eventId')
+
+        if not food_name or not family_member_id or not event_id:
+            return {'error': 'Incomplete data provided'}, 400
+
         new_food = Food(
-            name=data['foodName'],
-            family_member_id=data['familyMemberId'],
-            event_id=data['eventId']
+            name=food_name,
+            family_member_id=family_member_id,
+            event_id=event_id
         )
+
         db.session.add(new_food)
         db.session.commit()
-        return make_response(new_food.to_dict(), 200)
 
-    def delete(self, food_id):
-        food = Food.query.get(food_id)
-        if food:
-            db.session.delete(food)
-            db.session.commit()
-            return make_response({'message': 'Food deleted successfully'}, 200)
-        else:
-            return {'message': 'Food not found'}, 404
+        response_dict = {
+            "id": new_food.id,
+            "name": new_food.name,
+            "family_member_name": new_food.family_member.first_name + " " + new_food.family_member.last_name
+        }
 
-api.add_resource(Foods, '/foods', '/foods/<int:food_id>')
+        return make_response(response_dict, 200)
+
+api.add_resource(Foods, '/foods')
+
+class FoodsById(Resource):
+    
+    def patch(self, id):
+        food = Food.query.filter_by(id = id).first()
+        data = request.json
+        for attr in data:
+            setattr(food, attr, data[attr])
+        db.session.commit()
+        response_dict = {
+            "id": food.id,
+            "name": food.name,
+            "family_member_name": food.family_member.first_name + " " + food.family_member.last_name
+        }
+        return make_response(response_dict, 200)
+
+    def delete(self, id):
+        food = Food.query.filter_by(id = id).first()
+        db.session.delete(food)
+        db.session.commit()
+        return make_response({}, 204)
+
+api.add_resource(FoodsById, '/foods/<int:id>')
+
 
 class Events(Resource):
     def get(self):

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 
-function FoodForm({ eventId }) {
+function FoodForm({ eventId, handleNewFood }) {
     const [familyMembers, setFamilyMembers] = useState([]);
 
     useEffect(() => {
@@ -30,11 +30,12 @@ function FoodForm({ eventId }) {
                     eventId: eventId,
                 }),
             })
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log("New food added:", data);
-                })
-                .catch((error) => console.error("Error adding new food:", error));
+            .then((response) => {
+                if (response.ok) {
+                    response.json().then(newFood => handleNewFood(newFood))
+                }
+            })
+            .catch((error) => console.error("Error adding new food:", error));
         },
     });
 
