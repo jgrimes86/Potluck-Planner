@@ -23,8 +23,9 @@ with app.app_context():
     Organizer.query.delete()
 
     o1 = Organizer(first_name="John", last_name="Doe", email="email@email.com", username="jdoe")
+    o2 = Organizer(first_name="Eddie", last_name="Twoshoes", email="edd@email.com", username="eddie2")
 
-    db.session.add_all([o1])
+    db.session.add_all([o1, o2])
     db.session.commit()
 
 
