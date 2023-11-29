@@ -81,7 +81,18 @@ class FamilyMembersList(Resource):
 
 api.add_resource(FamilyMembersList, '/family_members')
 
+class InvitedFamilyMembers(Resource):
+
+    def get(self, event_id):
+        family_members = db.session.query(FamilyMember).join(Food, FamilyMember.id == Food.family_member_id).filter(Food.event_id == event_id).all()
+        fm_list = [fm.to_dict() for fm in family_members]
+        return make_response(fm_list, 200)
+
+api.add_resource(InvitedFamilyMembers, '/family_members/<int:event_id>')
+
+
 class Foods(Resource):
+
     def get(self):
         event_id = request.args.get('event_id')
         foods = Food.query.filter_by(event_id=event_id).all()
@@ -114,16 +125,26 @@ class Foods(Resource):
 
         return make_response(new_food.to_dict(), 200)
 
-api.add_resource(Foods, '/foods', '/foods/<int:food_id>')
+api.add_resource(Foods, '/foods')
 
-class InvitedFamilyMembers(Resource):
+class FoodsById(Resource):
+    
+    def patch(self, id):
+        food = Food.query.filter_by(id = id).first()
+        data = request.json
+        for attr in data:
+            setattr(food, attr, data[attr])
+        db.session.commit()
+        return make_response(food.to_dict(), 200)
 
-    def get(self, event_id):
-        family_members = db.session.query(FamilyMember).join(Food, FamilyMember.id == Food.family_member_id).filter(Food.event_id == event_id).all()
-        fm_list = [fm.to_dict() for fm in family_members]
-        return make_response(fm_list, 200)
+    def delete(self, id):
+        food = Food.query.filter_by(id = id).first()
+        db.session.delete(food)
+        db.session.commit()
+        return make_response({}, 204)
 
-api.add_resource(InvitedFamilyMembers, '/family_members/<int:event_id>')
+api.add_resource(FoodsById, '/foods/<int:id>')
+
 
 class Events(Resource):
     def get(self):
