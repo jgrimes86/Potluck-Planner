@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import {useFormik} from "formik";
 import * as yup from "yup";
 
+import FamilyListItem from "./FamilyListItem";
+
 function AddFamily() {
     const [invitedFamily, setInvitedFamily] = useState([])
 
@@ -78,15 +80,24 @@ function AddFamily() {
             }
         })
     }, [])
-    // console.log(invitedFamily)
+
+    function deleteFamilyMember(memberId) {
+        fetch('http://localhost:5555/family_members/'+memberId, {
+            method: 'DELETE'
+        })
+        .then(r => {
+            if (r.ok) {
+                setInvitedFamily(invitedFamily.filter(fm => {
+                        if (fm.id !== memberId) {
+                            return fm
+                        }
+                }))
+            }
+        })
+    }
 
     const familyList = invitedFamily.map(fm => {
-        return (
-            <li key={fm.id}>
-                <span>{`${fm.first_name} ${fm.last_name}`}</span>
-                <button>Remove Guest</button>
-            </li>
-        )
+        return <FamilyListItem key={fm.id} familyMember={fm} deleteFamilyMember={deleteFamilyMember} />
     })
 
 /////////////////////////////   END OF MAP OF FAMILY MEMBERS ////////////////////

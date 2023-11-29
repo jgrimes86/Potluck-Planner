@@ -72,6 +72,16 @@ class FamilyMembers(Resource):
 
 api.add_resource(FamilyMembers, '/family_members')
 
+class FamilyMembersById(Resource):
+
+    def delete(self, id):
+        fm = FamilyMember.query.filter_by(id = id).first()
+        db.session.delete(fm)
+        db.session.commit()
+        return make_response({}, 204)
+
+api.add_resource(FamilyMembersById, '/family_members/<int:id>')
+
 class Foods(Resource):
 
     def post(self):
