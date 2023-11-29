@@ -1,29 +1,26 @@
-
 from flask import make_response, request, session
 from flask_restful import Resource
 from config import app, db, api
 from models import FamilyMember, Event, Food, Organizer
-
 
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
 
 class Login(Resource):
-    
     def post(self):
         username = request.json['username']
-        user = Organizer.query.filter_by(username = username).first()
+        user = Organizer.query.filter_by(username=username).first()
         session['user_id'] = user.id
         return make_response(user.to_dict(), 200)
 
 api.add_resource(Login, '/login')
 
 class Signup(Resource):
-
     def post(self):
         data = request.json
-        user = Organizer(first_name=data['firstName'], last_name=data['lastName'], email=data['email'], username=data['username'])
+        user = Organizer(first_name=data['firstName'], last_name=data['lastName'], email=data['email'],
+                          username=data['username'])
         db.session.add(user)
         db.session.commit()
         return make_response(user.to_dict(), 200)
@@ -31,7 +28,6 @@ class Signup(Resource):
 api.add_resource(Signup, '/signup')
 
 class Logout(Resource):
-
     def get(self):
         session['user_id'] = {}
         return make_response('', 204)
@@ -39,9 +35,8 @@ class Logout(Resource):
 api.add_resource(Logout, '/logout')
 
 class CheckSession(Resource):
-    
     def get(self):
-        user = Organizer.query.filter_by(id = session.get('user_id')).first()
+        user = Organizer.query.filter_by(id=session.get('user_id')).first()
         if user:
             return user.to_dict()
         else:
@@ -49,9 +44,7 @@ class CheckSession(Resource):
 
 api.add_resource(CheckSession, '/check_session')
 
-
 class FamilyMembers(Resource):
-
     def post(self):
         data = request.json
         new_member = FamilyMember(first_name=data['firstName'], last_name=data['lastName'], email=data['email'])
@@ -65,9 +58,8 @@ class FamilyMembersList(Resource):
     def get(self):
         try:
             family_members = FamilyMember.query.all()
-
-            family_members_list = [{"id": member.id, "first_name": member.first_name, "last_name": member.last_name, "email": member.email} for member in family_members]
-
+            family_members_list = [{"id": member.id, "first_name": member.first_name, "last_name": member.last_name,
+                                     "email": member.email} for member in family_members]
             return make_response(family_members_list, 200)
         except Exception as e:
             return {'error': str(e)}, 500
@@ -97,27 +89,21 @@ class Foods(Resource):
         db.session.commit()
         return make_response(new_food.to_dict(), 200)
 
-api.add_resource(Foods, '/foods')
-
-
-class Events(Resource):
-    def post(self):
-        data = request.json
-        organizer_id = session.get('user_id')
-        if organizer_id:
-            new_event = Event(name=data['eventName'], organizer_id=organizer_id)
-            db.session.add(new_event)
+    def delete(self, food_id):
+        food = Food.query.get(food_id)
+        if food:
+            db.session.delete(food)
             db.session.commit()
-            return make_response(new_event.to_dict(), 200)
+            return make_response({'message': 'Food deleted successfully'}, 200)
         else:
-            return {'message': '401: Not Authorized'}, 401
-        
+            return {'message': 'Food not found'}, 404
+
+api.add_resource(Foods, '/foods', '/foods/<int:food_id>')
+
 class Events(Resource):
     def get(self):
         events = Event.query.all()
-
         events_list = [{"id": event.id, "name": event.name} for event in events]
-
         return make_response(events_list, 200)
 
     def post(self):
@@ -131,17 +117,24 @@ class Events(Resource):
         else:
             return {'message': '401: Not Authorized'}, 401
 
-@app.route('/events/<int:event_id>')
-def get_event(event_id):
-    event = Event.query.get(event_id)
-    if event:
-        return make_response(event.to_dict(), 200)
-    else:
-        return {'message': 'Event not found'}, 404
-
-
 api.add_resource(Events, '/events')
+
+@app.route('/events/<int:event_id>', methods=['GET', 'DELETE'])
+def get_or_delete_event(event_id):
+    if request.method == 'GET':
+        event = Event.query.get(event_id)
+        if event:
+            return make_response(event.to_dict(), 200)
+        else:
+            return {'message': 'Event not found'}, 404
+    elif request.method == 'DELETE':
+        event = Event.query.get(event_id)
+        if event:
+            db.session.delete(event)
+            db.session.commit()
+            return make_response({'message': 'Event has been deleted'}, 200)
+        else:
+            return {'message': 'Event not found'}, 404
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
-

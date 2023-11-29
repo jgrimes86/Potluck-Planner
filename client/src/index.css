@@ -14,7 +14,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column; /* Adjust to column direction */
+  flex-direction: column;
   height: 100vh;
 }
 
@@ -23,7 +23,7 @@ body {
   padding: 20px;
   position: relative;
   z-index: 1;
-  text-align: center; /* Center the content horizontally */
+  text-align: center;
 }
 
 header {
@@ -52,9 +52,7 @@ nav button {
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
-  position: relative;
   z-index: 2;
-  transition: background 0.3s ease;
 }
 
 nav button:hover {

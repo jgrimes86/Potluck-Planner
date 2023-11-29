@@ -39,11 +39,33 @@ function Event() {
         {foods.map((food) => (
           <li key={food.id}>
             {food.name} - Family Member: {food.family_member_name}
+            <button onClick={() => handleDeleteFood(food.id)}>
+              Delete Food
+            </button>
           </li>
         ))}
       </ul>
     </div>
   );
+
+  function handleDeleteFood(foodId) {
+    fetch(`http://localhost:5555/foods/${foodId}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Food deleted:", data);
+        fetch(`http://localhost:5555/foods?event_id=${id}`)
+          .then((response) => response.json())
+          .then((data) => {
+            setFoods(data);
+          })
+          .catch((error) =>
+            console.error("Error fetching associated foods:", error)
+          );
+      })
+      .catch((error) => console.error("Error deleting food:", error));
+  }
 }
 
 export default Event;
