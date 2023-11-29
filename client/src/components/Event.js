@@ -56,7 +56,7 @@ function Event() {
     .then(r => {
       if (r.ok) {
         r.json().then(updatedFood => {
-          setFoods(foods.filter(food => {
+          setFoods(foods.map(food => {
             if (food.id === updatedFood.id) {
               return updatedFood
             } else return food
@@ -64,6 +64,7 @@ function Event() {
         })
       }
     })
+    .catch((error) => console.error("Error changing food:", error));
   }
 
   function handleNewFood(newFood) {

@@ -1,19 +1,9 @@
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 function FoodItem({food, handleDeleteFood, handleChangeFood}) {
     const [changeForm, setChangeForm] = useState(false)
     const [foodState, setFoodState] = useState(food.name)
-
-    console.log(food)
-
-    const changeFoodButton = () => {
-        return <button onClick={() => setChangeForm(true)}>Change Food</button>
-    }
-
-    function handleChange(event) {
-        setFoodState(event.target.value)
-    }
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -39,14 +29,31 @@ function FoodItem({food, handleDeleteFood, handleChangeFood}) {
         )
     }
 
+    const changeFoodButton = () => {
+        return <button onClick={() => setChangeForm(true)}>Change Food</button>
+    }
+
+    function handleChange(event) {
+        setFoodState(event.target.value)
+    }
+
+    function changeFoodFunctions() {
+        return (
+            <>
+                {changeForm ? foodUpdateForm() : changeFoodButton()}
+                <button onClick={() => handleDeleteFood(food.id)}>Delete Food</button>
+            </>
+        )
+    }
+ 
     return (
         <li key={food.id}>
-            {/* {food.name} - Family Member: {food.family_member_name} */}
-            {food.family_member_name} will bring: {foodState ? foodState : addFoodForm()}
-            {changeForm ? foodUpdateForm() : changeFoodButton()}
-            <button onClick={() => handleDeleteFood(food.id)}>
-                Delete Food
-            </button>
+            {food.family_member_name} will bring {food.name ? foodState : addFoodForm()}
+            {food.name ? changeFoodFunctions() : null}
+
+            {/* {changeForm ? foodUpdateForm() : changeFoodButton()}
+            <button onClick={() => handleDeleteFood(food.id)}>Delete Food</button> */}
+        
         </li>
     )
 }

@@ -141,7 +141,12 @@ class FoodsById(Resource):
         for attr in data:
             setattr(food, attr, data[attr])
         db.session.commit()
-        return make_response(food.to_dict(), 200)
+        response_dict = {
+            "id": food.id,
+            "name": food.name,
+            "family_member_name": food.family_member.first_name + " " + food.family_member.last_name
+        }
+        return make_response(response_dict, 200)
 
     def delete(self, id):
         food = Food.query.filter_by(id = id).first()
