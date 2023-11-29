@@ -1,23 +1,13 @@
-#!/usr/bin/env python3
 
-# Standard library imports
-
-# Remote library imports
 from flask import make_response, request, session
 from flask_restful import Resource
-
-# Local imports
 from config import app, db, api
-# Add your model imports
 from models import FamilyMember, Event, Food, Organizer
 
-# Views go here!
 
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
-
-# LOGIN PAGE
 
 class Login(Resource):
     
@@ -59,7 +49,6 @@ class CheckSession(Resource):
 
 api.add_resource(CheckSession, '/check_session')
 
-# ADD FAMILY PAGE
 
 class FamilyMembers(Resource):
 
@@ -72,11 +61,38 @@ class FamilyMembers(Resource):
 
 api.add_resource(FamilyMembers, '/family_members')
 
+class FamilyMembersList(Resource):
+    def get(self):
+        try:
+            family_members = FamilyMember.query.all()
+
+            family_members_list = [{"id": member.id, "first_name": member.first_name, "last_name": member.last_name, "email": member.email} for member in family_members]
+
+            return make_response(family_members_list, 200)
+        except Exception as e:
+            return {'error': str(e)}, 500
+
+api.add_resource(FamilyMembersList, '/family_members')
+
 class Foods(Resource):
+    def get(self):
+        event_id = request.args.get('event_id')
+        foods = Food.query.filter_by(event_id=event_id).all()
+
+        foods_list = [
+            {"id": food.id, "name": food.name, "family_member_name": food.family_member.first_name + " " + food.family_member.last_name}
+            for food in foods
+        ]
+
+        return make_response(foods_list, 200)
 
     def post(self):
         data = request.json
-        new_food = Food(family_member_id=data['family_member_id'], event_id=data['event_id'])
+        new_food = Food(
+            name=data['foodName'],
+            family_member_id=data['familyMemberId'],
+            event_id=data['eventId']
+        )
         db.session.add(new_food)
         db.session.commit()
         return make_response(new_food.to_dict(), 200)
@@ -84,7 +100,47 @@ class Foods(Resource):
 api.add_resource(Foods, '/foods')
 
 
+class Events(Resource):
+    def post(self):
+        data = request.json
+        organizer_id = session.get('user_id')
+        if organizer_id:
+            new_event = Event(name=data['eventName'], organizer_id=organizer_id)
+            db.session.add(new_event)
+            db.session.commit()
+            return make_response(new_event.to_dict(), 200)
+        else:
+            return {'message': '401: Not Authorized'}, 401
+        
+class Events(Resource):
+    def get(self):
+        events = Event.query.all()
 
+        events_list = [{"id": event.id, "name": event.name} for event in events]
+
+        return make_response(events_list, 200)
+
+    def post(self):
+        data = request.json
+        organizer_id = session.get('user_id')
+        if organizer_id:
+            new_event = Event(name=data['eventName'], organizer_id=organizer_id)
+            db.session.add(new_event)
+            db.session.commit()
+            return make_response(new_event.to_dict(), 200)
+        else:
+            return {'message': '401: Not Authorized'}, 401
+
+@app.route('/events/<int:event_id>')
+def get_event(event_id):
+    event = Event.query.get(event_id)
+    if event:
+        return make_response(event.to_dict(), 200)
+    else:
+        return {'message': 'Event not found'}, 404
+
+
+api.add_resource(Events, '/events')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
