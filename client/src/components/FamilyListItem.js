@@ -8,7 +8,7 @@ function FamilyListItem({familyMember, deleteFamilyMember}) {
     return (
         <li>
             <span>{`${familyMember.first_name} ${familyMember.last_name}`}</span>
-            <button onClick={handleDelete}>Remove Guest</button>
+            <button onClick={handleDelete}>Delete</button>
         </li> 
     )
 }

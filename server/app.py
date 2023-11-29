@@ -63,6 +63,10 @@ api.add_resource(CheckSession, '/check_session')
 
 class FamilyMembers(Resource):
 
+    def get(self):
+        members = [fm.to_dict() for fm in FamilyMember.query.all()]
+        return make_response(members, 200)
+
     def post(self):
         data = request.json
         new_member = FamilyMember(first_name=data['firstName'], last_name=data['lastName'], email=data['email'])
