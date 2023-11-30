@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useOutletContext } from "react-router-dom";
 
-function Login({ handleLogin }) {
+
+function Login() {
   const [signup, setSignup] = useState(false);
+
+  const {handleLogin, setUser} = useOutletContext()
 
   function handleClick() {
     setSignup(!signup);
   }
+
 
   // Login validation, formik, and form
   const loginSchema = yup.object().shape({
@@ -29,7 +34,7 @@ function Login({ handleLogin }) {
         body: JSON.stringify(values, null, 2),
       }).then((r) => {
         if (r.ok) {
-          r.json().then((user) => handleLogin(user));
+          r.json().then((user) => {handleLogin(user); setUser(user)});
         }
       });
     },
@@ -80,7 +85,7 @@ function Login({ handleLogin }) {
         body: JSON.stringify(values, null, 2),
       }).then((r) => {
         if (r.ok) {
-          r.json().then((user) => handleLogin(user));
+          r.json().then((user) => {handleLogin(user); setUser(user)});
         }
       });
     },

@@ -1,19 +1,21 @@
 
 import { useState, useEffect } from "react";
+import { useParams, useOutletContext } from "react-router-dom";
 
 import FamilyListItem from "./FamilyListItem";
 import AddFamilyForm from "./AddFamilyForm";
 import AllFamilyMembers from "./AllFamilyMembers";
+import Navbar from "./Navbar";
 
 function AddFamily() {
     const [invitedFamily, setInvitedFamily] = useState([])
+    const { event, setIsLoggedIn, setUser } = useOutletContext()
+    const { id } = useParams()
 
     // NEED TO HAVE A PROP FOR THE EVENT THAT CAN BE USED TO CREATE foods TABLE ROW
 
     useEffect(() => {
-        // MUST CHANGE EVENT ID TO
-        let event_id=2
-        fetch('http://localhost:5555/family_members/'+event_id)
+        fetch('http://localhost:5555/family_members/'+id)
         .then(r => {
             if (r.ok) {
                 r.json().then(data => setInvitedFamily(data))
@@ -29,10 +31,9 @@ function AddFamily() {
             headers: {
                 "Content-Type": "application/json"
             },
-            // MUST GET EVENT ID FROM EVENT
             body: JSON.stringify({
                 family_member_id: familyMember.id,
-                event_id: 2
+                event_id: id
             })
         })
     }
@@ -56,7 +57,7 @@ function AddFamily() {
 
     return (
         <div>
-            
+            <Navbar event={event} setUser={setUser} setIsLoggedIn={setIsLoggedIn} />
             <h1>Add Family Members</h1>
 
             <ul>

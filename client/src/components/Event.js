@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useOutletContext } from "react-router-dom";
 import FoodForm from "./FoodForm";
 import FoodItem from "./FoodItem";
+import Navbar from "./Navbar";
 
 function Event() {
   const { id } = useParams();
-  const [event, setEvent] = useState(null);
+  // const [event, setEvent] = useState(null);
   const [foods, setFoods] = useState([]);
+  const { event, setEvent, setIsLoggedIn, setUser } = useOutletContext()
 
   // console.log("EVENT: ", event)
   console.log("Foods:", foods)
@@ -80,6 +82,7 @@ function Event() {
   
   return (
     <div>
+      <Navbar event={event} setUser={setUser} setIsLoggedIn={setIsLoggedIn} />
       {event? <h1>{event.name}</h1> : null}
       <FoodForm eventId={id} handleNewFood={handleNewFood} />
 
