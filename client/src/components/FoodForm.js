@@ -40,17 +40,18 @@ function FoodForm({ eventId, handleNewFood, foods }) {
     });
 
     return (
-        <form onSubmit={formik.handleSubmit}>
-            <label htmlFor="foodName">Food Name:</label>
+        <form id="add-food-container" onSubmit={formik.handleSubmit}>
+            <label id="foodName-label" className="label" htmlFor="foodName">Food Name:</label>
             <input
                 type="text"
                 id="foodName"
+                className="input"
                 name="foodName"
                 onChange={formik.handleChange}
                 value={formik.values.foodName}
             />
 
-            <label htmlFor="familyMemberId">Select Family Member:</label>
+            <label id="familyMemberId-label" htmlFor="familyMemberId">Select Family Member:</label>
             <select
                 id="familyMemberId"
                 name="familyMemberId"
@@ -65,7 +66,7 @@ function FoodForm({ eventId, handleNewFood, foods }) {
                 ))}
             </select>
 
-            <button type="submit">Submit</button>
+            <button id="add-food-button" className="input" type="submit">Submit</button>
         </form>
     );
 }

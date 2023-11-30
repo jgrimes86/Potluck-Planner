@@ -73,6 +73,8 @@ header img {
 
 /* EVENT PAGE */
 
+/* Table showing guests and food items they are bringing */
+
 #food-table {
   display: flex;
   flex-direction: column;
@@ -117,5 +119,20 @@ header img {
 
 .change-delete > form > input {
   width: 100px;
+}
+
+/* form for adding additional item to food table */
+#add-food-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.label {
+  grid-column: 1;
+}
+
+.input {
+  grid-column: 2;
 }
 

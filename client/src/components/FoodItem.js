@@ -70,9 +70,6 @@ function FoodItem({food, handleDeleteFood, handleChangeFood}) {
                 {food.name ? bringingFood() : notBringingFood()}
             </div>
 
-            {/* <div className="guest-food">
-                {food.name ? `${food.family_member_name} will bring ${foodState}` : `${food.family_member_name} isn't bringing anything`}
-            </div> */}
             <div className="change-delete">
                 {food.name ? changeFoodFunctions() : addFoodForm()}
             </div>
