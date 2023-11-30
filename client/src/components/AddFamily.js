@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { useParams, useOutletContext } from "react-router-dom";
 
 import FamilyListItem from "./FamilyListItem";
-import AddFamilyForm from "./AddFamilyForm";
+import AddNewFamilyMember from "./AddNewFamilyMember";
+// import AddFamilyForm from "./AddFamilyForm";
 import AllFamilyMembers from "./AllFamilyMembers";
 import Navbar from "./Navbar";
 
@@ -64,7 +65,7 @@ function AddFamily() {
                 {familyList}
             </ul>
 
-            <AddFamilyForm invitedFamily={invitedFamily} setInvitedFamily={setInvitedFamily} addToJoinTable={addToJoinTable} />
+            <AddNewFamilyMember invitedFamily={invitedFamily} setInvitedFamily={setInvitedFamily} addToJoinTable={addToJoinTable} />
 
             <AllFamilyMembers addToJoinTable={addToJoinTable} invitedFamily={invitedFamily} setInvitedFamily={setInvitedFamily} />
 

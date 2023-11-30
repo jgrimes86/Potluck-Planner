@@ -2,7 +2,7 @@
 import {useFormik} from "formik";
 import * as yup from "yup";
 
-function AddFamilyForm({invitedFamily, setInvitedFamily, addToJoinTable}) {
+function AddNewFamilyMember({invitedFamily, setInvitedFamily, addToJoinTable}) {
 
     // form for add family member to event
     const addFamilySchema = yup.object().shape({
@@ -96,4 +96,4 @@ function AddFamilyForm({invitedFamily, setInvitedFamily, addToJoinTable}) {
 
 }
 
-export default AddFamilyForm
+export default AddNewFamilyMember

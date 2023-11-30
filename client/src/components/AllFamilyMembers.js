@@ -31,14 +31,9 @@ function AllFamilyMembers({addToJoinTable, invitedFamily, setInvitedFamily}) {
                 return fm
             }
         })
-        // console.log(invited)
-        // for (const fm of invited) {
-        //     addToJoinTable(fm);
-        //     setInvitedFamily([...invitedFamily, fm])
-        // }
         invited.map(fm => {
-            addToJoinTable(fm);
             setInvitedFamily([...invitedFamily, fm])
+            addToJoinTable(fm);
             setIsChecked([])
         })
     }

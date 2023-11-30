@@ -27,7 +27,7 @@ function EventMenu() {
         {events.map((event) => (
           // Use Link to make each event clickable and navigate to the Event page
           <li key={event.id}>
-            <Link to={`/event/${event.id}`}>{event.name}</Link>
+            <Link to={`/events/${event.id}`}>{event.name}</Link>
           </li>
         ))}
       </ul>

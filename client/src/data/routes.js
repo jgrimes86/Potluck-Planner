@@ -22,11 +22,11 @@ const routes = [
             },
 
             {
-                path: "/event/:id",
+                path: "/events/:id",
                 element: <Event />
             },
             {
-                path: "/familymembers/:id",
+                path: "/events/familymembers/:id",
                 element: <AddFamily />
             }
                 

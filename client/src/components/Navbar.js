@@ -12,12 +12,12 @@ function Navbar({event, setUser, setIsLoggedIn}) {
                 Event Menu
             </NavLink>
             <NavLink
-                to={`/event/${event.id}`}
+                to={`/events/${event.id}`}
             >
                 Event
             </NavLink>
             <NavLink
-                to={`/familymembers/${event.id}`}
+                to={`/events/familymembers/${event.id}`}
             >
                 Family Members
             </NavLink>
