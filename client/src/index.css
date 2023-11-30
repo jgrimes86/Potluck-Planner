@@ -1,3 +1,8 @@
+* {
+  outline: 1px dashed red;
+  text-align: center;
+}
+
 :root {
   --bg: #282c34;
   --header: #fff;

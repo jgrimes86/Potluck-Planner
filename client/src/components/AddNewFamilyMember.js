@@ -2,7 +2,7 @@ import { useOutletContext } from "react-router-dom";
 import {useFormik} from "formik";
 import * as yup from "yup";
 
-function AddNewFamilyMember({addToJoinTable}) {
+function AddNewFamilyMember({addToJoinTable, allFamily, setAllFamily}) {
 
     const {invitedFamily, setInvitedFamily} = useOutletContext()
 
@@ -33,7 +33,8 @@ function AddNewFamilyMember({addToJoinTable}) {
                 if (r.ok) {
                     r.json().then(familyMember => {
                         addToJoinTable(familyMember);
-                        setInvitedFamily([...invitedFamily, familyMember])
+                        setInvitedFamily([...invitedFamily, familyMember]);
+                        setAllFamily([...allFamily, familyMember])
                         addFamilyFormik.resetForm()
                     })
                 }

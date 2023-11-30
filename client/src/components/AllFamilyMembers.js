@@ -2,21 +2,21 @@
 import { useState, useEffect } from "react";
 import { useParams, useOutletContext } from "react-router-dom";
 
-function AllFamilyMembers({addToJoinTable}) {
-    const [allFamily, setAllFamily] = useState([])
+function AllFamilyMembers({addToJoinTable, setAllFamily, allFamily}) {
+    // const [allFamily, setAllFamily] = useState([])
     const {invitedFamily, setInvitedFamily} = useOutletContext()
     const { id } = useParams()
 
     console.log(allFamily)
 
-    useEffect(() => {
-        fetch('http://localhost:5555/family_members')
-        .then(r => {
-            if (r.ok) {
-                r.json().then(data => setAllFamily(data))
-            }
-        })
-    }, [])
+    // useEffect(() => {
+    //     fetch('http://localhost:5555/family_members')
+    //     .then(r => {
+    //         if (r.ok) {
+    //             r.json().then(data => setAllFamily(data))
+    //         }
+    //     })
+    // }, [])
     // console.log(allFamily)
 
     ///////////////////////// INVITE FAMILY MEMBER //////////////////////

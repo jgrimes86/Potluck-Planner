@@ -8,6 +8,8 @@ import Navbar from "./Navbar";
 
 function AddFamily() {
     // const [invitedFamily, setInvitedFamily] = useState([])
+    const [allFamily, setAllFamily] = useState([])
+
     const { event, setIsLoggedIn, setUser, invitedFamily, setInvitedFamily } = useOutletContext()
     const { id } = useParams()
 
@@ -19,6 +21,14 @@ function AddFamily() {
     //         }
     //     })
     // }, [])
+    useEffect(() => {
+        fetch('http://localhost:5555/family_members')
+        .then(r => {
+            if (r.ok) {
+                r.json().then(data => setAllFamily(data))
+            }
+        })
+    }, [])
 
 
     // create new foods table row to link event and family_member
@@ -53,9 +63,9 @@ function AddFamily() {
                 {familyList}
             </ul>
 
-            <AddNewFamilyMember invitedFamily={invitedFamily} setInvitedFamily={setInvitedFamily} addToJoinTable={addToJoinTable} />
+            <AddNewFamilyMember addToJoinTable={addToJoinTable} allFamily={allFamily} setAllFamily={setAllFamily} />
 
-            <AllFamilyMembers addToJoinTable={addToJoinTable} invitedFamily={invitedFamily} setInvitedFamily={setInvitedFamily} />
+            <AllFamilyMembers addToJoinTable={addToJoinTable} allFamily={allFamily} setAllFamily={setAllFamily} />
 
         </div>
     )
