@@ -175,14 +175,14 @@ class Events(Resource):
 
     def post(self):
         data = request.json
-        organizer_id = session.get('user_id')
-        if organizer_id:
-            new_event = Event(name=data['eventName'], organizer_id=organizer_id)
-            db.session.add(new_event)
-            db.session.commit()
-            return make_response(new_event.to_dict(), 200)
-        else:
-            return {'message': '401: Not Authorized'}, 401
+        # organizer_id = session.get('user_id')
+        # if organizer_id:
+        new_event = Event(name=data['event'])
+        db.session.add(new_event)
+        db.session.commit()
+        return make_response(new_event.to_dict(), 200)
+        # else:
+        #     return {'message': '401: Not Authorized'}, 401
 
 api.add_resource(Events, '/events')
 

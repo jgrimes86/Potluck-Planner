@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import AddEvent from "./AddEvent";
+
 // import { Outlet, Navigate, useNavigate } from "react-router-dom";
 
 
@@ -36,13 +38,13 @@ function EventMenu() {
       <h1>Event Menu</h1>
       <ul>
         {events.map((event) => (
-          // Use Link to make each event clickable and navigate to the Event page
           <li key={event.id}>
             <Link to={`/events/${event.id}`}>{event.name}</Link>
             <button onClick={() => handleDelete(event.id)}>Delete</button>
           </li>
         ))}
       </ul>
+      <AddEvent setEvents = {setEvents} events={events}/>
     </div>
   );
 }
