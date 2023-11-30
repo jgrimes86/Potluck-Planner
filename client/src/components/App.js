@@ -13,11 +13,12 @@ function App() {
   const [user, setUser] = useState(null);
   const [event, setEvent] = useState([])
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [invitedFamily, setInvitedFamily] = useState([])
 
   const navigate = useNavigate()
   const location = useLocation();
 
-  // console.log(user)
+  console.log(invitedFamily)
 
   useEffect(() => {
     fetch("http://localhost:5555/check_session").then((r) => {
@@ -28,6 +29,15 @@ function App() {
   }, []);
 
   useEffect(() => {
+    fetch('http://localhost:5555/family_members/'+event.id)
+    .then(r => {
+        if (r.ok) {
+            r.json().then(data => setInvitedFamily(data))
+        }
+    })
+}, [event])
+
+  useEffect(() => {
     if (isLoggedIn) {
       navigate("/events");
     } else {
@@ -35,10 +45,10 @@ function App() {
     }
   }, [isLoggedIn])
 
-  function handleLogin(user) {
-    setUser(user);
-    setIsLoggedIn(true);
-  }
+  // function handleLogin() {
+  //   // setUser(user);
+  //   setIsLoggedIn(true);
+  // }
 
   function handleLogout() {
     fetch("http://localhost:5555/logout").then((r) => {
@@ -50,12 +60,14 @@ function App() {
   }
 
   const context = {
-    handleLogin,
+    // handleLogin,
     handleLogout,
     setEvent,
     event,
     setUser,
-    setIsLoggedIn
+    setIsLoggedIn,
+    invitedFamily,
+    setInvitedFamily
   }
 
   return (

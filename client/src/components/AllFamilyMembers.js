@@ -1,9 +1,13 @@
 
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
+import { useParams, useOutletContext } from "react-router-dom";
 
-function AllFamilyMembers({addToJoinTable, invitedFamily, setInvitedFamily}) {
+function AllFamilyMembers({addToJoinTable}) {
     const [allFamily, setAllFamily] = useState([])
-    const [isChecked, setIsChecked] = useState({})
+    const {invitedFamily, setInvitedFamily} = useOutletContext()
+    const { id } = useParams()
+
+    console.log(allFamily)
 
     useEffect(() => {
         fetch('http://localhost:5555/family_members')
@@ -15,71 +19,69 @@ function AllFamilyMembers({addToJoinTable, invitedFamily, setInvitedFamily}) {
     }, [])
     // console.log(allFamily)
 
-    // form that consists of list of components for all guests in FamilyMember table that include:
-    // 1. guest name
-    // 2. conditonal rendering of:
-        // a. already invited to current event
-        // b. check mark to invite to current event
-    // on submission of form, guests with checked boxes are:
-        // a. associated with event in foods table
-        // b. added to invitedFamily
+    ///////////////////////// INVITE FAMILY MEMBER //////////////////////
+    function inviteFamilyMember(fm) {
+        setInvitedFamily([...invitedFamily, fm]);
+        addToJoinTable(fm)
+    }
 
-    function handleSubmit(event) {
-        event.preventDefault()
-        let invited = allFamily.filter(fm => {
-            if (isChecked[fm.id] === true) {
-                return fm
+    /////////////////////////// UNINVITE FAMILY MEMBER ///////////////////
+    function uninviteFamilyMember(fm) {
+        fetch('http://localhost:5555/uninvite/'+fm.id, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "event_id": id
+            })
+        })
+        .then(r => {
+            if (r.ok) {
+                setInvitedFamily(invitedFamily.filter(member => {
+                    if (member.id !== fm.id) return member
+                }))
             }
         })
-        invited.map(fm => {
-            setInvitedFamily([...invitedFamily, fm])
-            addToJoinTable(fm);
-            setIsChecked([])
+    }
+
+    ////////////////////// DELETE FAMILY MEMBER ////////////////////////
+    function deleteFamilyMember(fm) {
+        fetch('http://localhost:5555/family_members/'+fm.id, {
+            method: 'DELETE'
+        })
+        .then(r => {
+            if (r.ok) {
+                setInvitedFamily(invitedFamily.filter(member => {if (member.id !== fm.id) return member}));
+                setAllFamily(allFamily.filter(member => {if (member.id !== fm.id) return member}))
+            }
         })
     }
 
-    function handleChange(id) {
-        let checkedState = isChecked[id]
-        setIsChecked({
-            ...isChecked,
-            [id]: !checkedState
-        })
-    }
 
-    const formItems = allFamily.map(fm => {
-        const invitedIds = invitedFamily.map(fm => fm.id)
-        if (invitedIds.includes(fm.id)) {
-            return (
-                <div key={fm.id}>
-                    <span>{`${fm.first_name} ${fm.last_name}`  }</span>
-                    <span>  has been invited to the event</span>
-                </div>
-            )
-        } else {
-            return (
-                <div key={fm.id}>
-                    <label htmlFor={fm.id}>{`${fm.first_name} ${fm.last_name}`}</label>
-                    <input 
-                        type="checkbox"
-                        id={fm.id}
-                        name={fm.id}
-                        onChange={() => handleChange(fm.id)}
-                    />
-                </div>
-            )
-        }
+
+    ////////////////////////// family member list ////////////////////////
+
+
+    const familyMemberList = allFamily.map(fm => {
+        const invitedIds = invitedFamily.map(member => member.id)
+        const isInvited = invitedIds.includes(fm.id)
+        return (
+            <li>
+                <span key={fm.id}>{`${fm.first_name}`+`${fm.last_name}`}</span>
+                {isInvited ? <button onClick={() => uninviteFamilyMember(fm)}>Uninvite</button> : <button onClick={() => inviteFamilyMember(fm)}>Invite</button>}
+                <button onClick={() => {deleteFamilyMember(fm)}}>Delete</button>
+            </li>
+            
+        )
     })
-    // console.log(isChecked)
 
     return (
         <div>
             <h3>Select Family Members to Invite:</h3>
-
-            <form onSubmit={handleSubmit} >
-                {formItems}
-                <button type="submit">Invite Family Members</button>
-            </form>
-        
+            <ul>
+                {familyMemberList}
+            </ul>
         </div>
     )
 }

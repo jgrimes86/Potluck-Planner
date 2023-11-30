@@ -1,8 +1,10 @@
-
+import { useOutletContext } from "react-router-dom";
 import {useFormik} from "formik";
 import * as yup from "yup";
 
-function AddNewFamilyMember({invitedFamily, setInvitedFamily, addToJoinTable}) {
+function AddNewFamilyMember({addToJoinTable}) {
+
+    const {invitedFamily, setInvitedFamily} = useOutletContext()
 
     // form for add family member to event
     const addFamilySchema = yup.object().shape({

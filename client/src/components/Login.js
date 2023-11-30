@@ -7,7 +7,7 @@ import { useOutletContext } from "react-router-dom";
 function Login() {
   const [signup, setSignup] = useState(false);
 
-  const {handleLogin, setUser} = useOutletContext()
+  const {setIsLoggedIn, setUser} = useOutletContext()
 
   function handleClick() {
     setSignup(!signup);
@@ -34,7 +34,7 @@ function Login() {
         body: JSON.stringify(values, null, 2),
       }).then((r) => {
         if (r.ok) {
-          r.json().then((user) => {handleLogin(user); setUser(user)});
+          r.json().then((user) => {setIsLoggedIn(true); setUser(user)});
         }
       });
     },
@@ -85,7 +85,7 @@ function Login() {
         body: JSON.stringify(values, null, 2),
       }).then((r) => {
         if (r.ok) {
-          r.json().then((user) => {handleLogin(user); setUser(user)});
+          r.json().then((user) => {setIsLoggedIn(user); setUser(user)});
         }
       });
     },

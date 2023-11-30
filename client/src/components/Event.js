@@ -8,7 +8,7 @@ function Event() {
   const { id } = useParams();
   // const [event, setEvent] = useState(null);
   const [foods, setFoods] = useState([]);
-  const { event, setEvent, setIsLoggedIn, setUser } = useOutletContext()
+  const { event, setEvent, setIsLoggedIn, setUser, invitedFamily } = useOutletContext()
 
   // console.log("EVENT: ", event)
   // console.log("Foods:", foods)

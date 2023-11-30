@@ -2,27 +2,23 @@
 import { useState, useEffect } from "react";
 import { useParams, useOutletContext } from "react-router-dom";
 
-import FamilyListItem from "./FamilyListItem";
 import AddNewFamilyMember from "./AddNewFamilyMember";
-// import AddFamilyForm from "./AddFamilyForm";
 import AllFamilyMembers from "./AllFamilyMembers";
 import Navbar from "./Navbar";
 
 function AddFamily() {
-    const [invitedFamily, setInvitedFamily] = useState([])
-    const { event, setIsLoggedIn, setUser } = useOutletContext()
+    // const [invitedFamily, setInvitedFamily] = useState([])
+    const { event, setIsLoggedIn, setUser, invitedFamily, setInvitedFamily } = useOutletContext()
     const { id } = useParams()
 
-    // NEED TO HAVE A PROP FOR THE EVENT THAT CAN BE USED TO CREATE foods TABLE ROW
-
-    useEffect(() => {
-        fetch('http://localhost:5555/family_members/'+id)
-        .then(r => {
-            if (r.ok) {
-                r.json().then(data => setInvitedFamily(data))
-            }
-        })
-    }, [])
+    // useEffect(() => {
+    //     fetch('http://localhost:5555/family_members/'+id)
+    //     .then(r => {
+    //         if (r.ok) {
+    //             r.json().then(data => setInvitedFamily(data))
+    //         }
+    //     })
+    // }, [])
 
 
     // create new foods table row to link event and family_member
@@ -39,20 +35,12 @@ function AddFamily() {
         })
     }
 
-
-    function deleteFamilyMember(memberId) {
-        fetch('http://localhost:5555/family_members/'+memberId, {
-            method: 'DELETE'
-        })
-        .then(r => {
-            if (r.ok) {
-                setInvitedFamily(invitedFamily.filter(fm => {if (fm.id !== memberId) return fm}))
-            }
-        })
-    }
-
     const familyList = invitedFamily.map(fm => {
-        return <FamilyListItem key={fm.id} familyMember={fm} deleteFamilyMember={deleteFamilyMember} />
+        return (
+            <li key={fm.id} >
+                {`${fm.first_name} ${fm.last_name}`}
+            </li>
+        )
     })
 
 
@@ -60,7 +48,7 @@ function AddFamily() {
         <div>
             <Navbar event={event} setUser={setUser} setIsLoggedIn={setIsLoggedIn} />
             <h1>Add Family Members</h1>
-
+            <h3>Family Members That Have Been Invited:</h3>
             <ul>
                 {familyList}
             </ul>
