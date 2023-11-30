@@ -84,7 +84,7 @@ function Event() {
     <div>
       <Navbar event={event} setUser={setUser} setIsLoggedIn={setIsLoggedIn} />
       {event? <h1>{event.name}</h1> : null}
-      <FoodForm eventId={id} handleNewFood={handleNewFood} />
+      <FoodForm eventId={id} handleNewFood={handleNewFood} foods={foods} />
 
       <h2>Foods:</h2>
       <ul>

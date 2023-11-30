@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 
-function FoodForm({ eventId, handleNewFood }) {
+function FoodForm({ eventId, handleNewFood, foods }) {
     const [familyMembers, setFamilyMembers] = useState([]);
 
     useEffect(() => {
@@ -58,9 +58,9 @@ function FoodForm({ eventId, handleNewFood }) {
                 value={formik.values.familyMemberId}
             >
                 <option value="">Select a Family Member</option>
-                {familyMembers.map((familyMember) => (
-                    <option key={familyMember.id} value={familyMember.id}>
-                        {familyMember.first_name} {familyMember.last_name}
+                {foods.map((food) => (
+                    <option key={food.id} value={food.id}>
+                        {food.family_member_name}
                     </option>
                 ))}
             </select>
