@@ -47,11 +47,11 @@ function FoodItem({food, handleDeleteFood, handleChangeFood}) {
     }
  
     return (
-        <li key={food.id} class="food-item">
-            <div class="guest-food">
+        <li key={food.id} className="food-item">
+            <div className="guest-food">
                 {food.name ? `${food.family_member_name} will bring ${foodState}` : `${food.family_member_name} isn't bringing anything`}
             </div>
-            <div class="change-delete">
+            <div className="change-delete">
                 {food.name ? changeFoodFunctions() : addFoodForm()}
             </div>
         </li>

@@ -1,38 +1,46 @@
 * {
   outline: 1px dashed red;
   text-align: center;
+  color: rgb(223, 226, 226);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-:root {
+/* :root {
   --bg: #282c34;
   --header: #fff;
   --link: #fb9461;
   --text: hsla(0, 0%, 100%, 0.88);
   --bubble: #61dafb;
-}
+} */
 
 body {
   font-family: "Arial", sans-serif;
-  background: linear-gradient(45deg, #141e30, #243b55);
-  color: var(--text);
-  overflow-y: scroll;
+  background: #243b55;
+  /* color: var(--text); */
+  overflow: scroll;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
-.container {
+/* .container {
   max-width: 800px;
   padding: 20px;
   position: relative;
   z-index: 1;
   text-align: center;
-}
+} */
 
 header {
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  /* flex-wrap: nowrap; */
+  justify-content: center;
+  align-content: end;
 }
 
 nav a {
@@ -64,7 +72,7 @@ nav button:hover {
   background: rgb(193, 93, 57);
 }
 
-.bubbles {
+/* .bubbles {
   position: fixed;
   top: 0;
   left: 0;
@@ -82,7 +90,7 @@ nav button:hover {
   border-radius: 50%;
   opacity: 0.8;
   animation: float 6s infinite ease-in-out;
-}
+} */
 
 button {
   background-color: rgb(153, 77, 50);
@@ -137,12 +145,15 @@ header img {
   flex-wrap: nowrap;
   justify-content: center;
   gap: 5px;
-  width: 100%;
+  /* width: 100%; */
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .guest-food {
   flex-basis: 50%;
   align-self: right;
+  align-content: center;
   text-align: right;
 }
 
@@ -155,9 +166,9 @@ header img {
 }
 
 .change-delete > form {
-  display: flex;
-  padding: 3px 10px;
-  /* margin-left: 10px; */
+  display: inline-block;
+  padding: 3px 0px 3px 10px;
+  margin-right: 0px;
   
 }
 
