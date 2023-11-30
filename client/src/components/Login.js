@@ -3,16 +3,14 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useOutletContext } from "react-router-dom";
 
-
 function Login() {
   const [signup, setSignup] = useState(false);
 
-  const {setIsLoggedIn, setUser} = useOutletContext()
+  const { setIsLoggedIn, setUser } = useOutletContext();
 
   function handleClick() {
     setSignup(!signup);
   }
-
 
   // Login validation, formik, and form
   const loginSchema = yup.object().shape({
@@ -34,7 +32,10 @@ function Login() {
         body: JSON.stringify(values, null, 2),
       }).then((r) => {
         if (r.ok) {
-          r.json().then((user) => {setIsLoggedIn(true); setUser(user)});
+          r.json().then((user) => {
+            setIsLoggedIn(true);
+            setUser(user);
+          });
         }
       });
     },
@@ -44,7 +45,8 @@ function Login() {
     return (
       <>
         <h1>Login</h1>
-        <form onSubmit={loginFormik.handleSubmit}>
+
+        <form onSubmit={loginFormik.handleSubmit} className="login-form">
           <label htmlFor="username">Enter User Name:</label>
           <input
             type="text"
@@ -52,9 +54,13 @@ function Login() {
             value={loginFormik.values.username}
             onChange={loginFormik.handleChange}
           />
-          <button type="submit">Log In</button>
+          <button id="loginsubmitbutton" type="submit">
+            Log In
+          </button>
+          <button id="loginsignupbutton" onClick={handleClick}>
+            Sign Up
+          </button>
         </form>
-        <button onClick={handleClick}>Sign Up</button>
       </>
     );
   };
@@ -85,7 +91,10 @@ function Login() {
         body: JSON.stringify(values, null, 2),
       }).then((r) => {
         if (r.ok) {
-          r.json().then((user) => {setIsLoggedIn(user); setUser(user)});
+          r.json().then((user) => {
+            setIsLoggedIn(user);
+            setUser(user);
+          });
         }
       });
     },
