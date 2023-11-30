@@ -108,11 +108,11 @@ class Foods(Resource):
         data = request.json
 
         food_name = data.get('foodName') or data.get('name')
-        family_member_id = data.get('familyMemberId')
-        event_id = data.get('eventId')
+        family_member_id = data.get('familyMemberId') or data.get('family_member_id')
+        event_id = data.get('eventId') or data.get('event_id')
 
-        if not food_name or not family_member_id or not event_id:
-            return {'error': 'Incomplete data provided'}, 400
+        # if not food_name or not family_member_id or not event_id:
+        #     return {'error': 'Incomplete data provided'}, 400
 
         new_food = Food(
             name=food_name,
@@ -156,6 +156,16 @@ class FoodsById(Resource):
 
 api.add_resource(FoodsById, '/foods/<int:id>')
 
+class FoodsByFamilyMember(Resource):
+    
+    def delete(self, id,):
+        event_id = request.json['event_id']
+        food = Food.query.filter_by(family_member_id=id, event_id=event_id).first()
+        db.session.delete(food)
+        db.session.commit()
+        return make_response({}, 204)
+
+api.add_resource(FoodsByFamilyMember, '/uninvite/<int:id>')
 
 class Events(Resource):
     def get(self):

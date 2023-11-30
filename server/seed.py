@@ -39,8 +39,10 @@ with app.app_context():
     fm1 = FamilyMember(first_name="Betsy", last_name="Ross", email="email@email.com")
     fm2 = FamilyMember(first_name="Aaron", last_name="Burr", email="email@email.com")
     fm3 = FamilyMember(first_name="Winston", last_name="Churchill", email="email@email.com")
+    fm4 = FamilyMember(first_name="Abraham", last_name="Lincoln", email="email@email.com")
+    fm5 = FamilyMember(first_name="Sally", last_name="Ride", email="email@email.com")
 
-    db.session.add_all([fm1, fm2, fm3])
+    db.session.add_all([fm1, fm2, fm3, fm4, fm5])
     db.session.commit()
 
 
