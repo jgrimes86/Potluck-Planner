@@ -83,13 +83,18 @@ function Event() {
   return (
     <div>
       <Navbar event={event} setUser={setUser} setIsLoggedIn={setIsLoggedIn} />
-      {event? <h1>{event.name}</h1> : null}
-      <FoodForm eventId={id} handleNewFood={handleNewFood} foods={foods} />
 
-      <h2>Foods:</h2>
-      <ul>
+      {event? <h1>{event.name}</h1> : null}
+
+      <h3>Assign Foods to Guests:</h3>
+
+      <ul id="food-table">
         {event ? foodList : <div>Loading...</div>}
       </ul>
+
+      <h3>Add Additional Food Assignment for a Guest:</h3>
+      <FoodForm eventId={id} handleNewFood={handleNewFood} foods={foods} />
+
     </div>
   );
 

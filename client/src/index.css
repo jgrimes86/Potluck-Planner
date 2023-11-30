@@ -15,7 +15,7 @@ body {
   font-family: "Arial", sans-serif;
   background: linear-gradient(45deg, #141e30, #243b55);
   color: var(--text);
-  overflow: hidden;
+  overflow-y: scroll;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,7 +84,7 @@ nav button:hover {
   animation: float 6s infinite ease-in-out;
 }
 
-button[type="submit"] {
+button {
   background-color: rgb(153, 77, 50);
   color: white;
   padding: 3px 15px;
@@ -96,7 +96,7 @@ button[type="submit"] {
   margin-left: 10px;
 }
 
-button[type="submit"].signup {
+/* button[type="submit"].signup {
   background-color: #28a745;
   color: white;
   padding: 10px 20px;
@@ -105,9 +105,9 @@ button[type="submit"].signup {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-}
+} */
 
-button[type="submit"].signup:hover {
+button:hover {
   background-color: #218838;
 }
 
@@ -119,3 +119,49 @@ header {
 header img {
   max-width: 22%;
 }
+
+/* EVENT PAGE */
+
+#food-table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.food-item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+}
+
+.guest-food {
+  flex-basis: 50%;
+  align-self: right;
+  text-align: right;
+}
+
+.change-delete {
+  flex-basis: 50%;
+  align-self: left;
+  text-align: left;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.change-delete > form {
+  display: flex;
+  padding: 3px 10px;
+  /* margin-left: 10px; */
+  
+}
+
+.change-delete > form > input {
+  width: 100px;
+}
+
