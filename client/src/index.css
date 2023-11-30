@@ -1,3 +1,39 @@
+/* LOGIN FORM CONTAINER */
+.login-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  grid-template-rows: repeat(2, auto); /* Two rows */
+  gap: 10px; /* Adjust the gap between grid items */
+}
+
+/* LOGIN FORM LABEL */
+.login-form label {
+  grid-column: 1; /* First column */
+  grid-row: 1; /* First row */
+}
+
+/* LOGIN FORM TEXT INPUT */
+.login-form input {
+  grid-column: 2; /* Second column */
+  grid-row: 1; /* First row */
+}
+
+/* LOGIN SUBMIT BUTTON */
+#loginsubmitbutton {
+  grid-column: 1; /* First column */
+  grid-row: 2; /* Second row */
+}
+
+/* LOGIN SIGNUP BUTTON */
+#loginsignupbutton {
+  grid-column: 2; /* Second column */
+  grid-row: 2; /* Second row */
+}
+
+
+
+
+
 * {
   /* outline: 1px dashed red; */
   text-align: center;
@@ -6,7 +42,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 
 body {
   font-family: "Arial", sans-serif;
@@ -18,11 +53,17 @@ body {
   flex-direction: column;
 }
 
+h1 {
+  text-align: center;
+  justify-content: center;
+}
+
 header {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-content: end;
+  align-items: center;
 }
 
 nav a {
@@ -114,7 +155,6 @@ header img {
   display: inline-block;
   padding: 3px 0px 3px 10px;
   margin-right: 0px;
-  
 }
 
 .change-delete > form > input {
