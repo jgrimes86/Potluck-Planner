@@ -46,11 +46,33 @@ function FoodItem({food, handleDeleteFood, handleChangeFood}) {
         )
     }
  
+    const bringingFood = () =>{
+        return (
+            <>
+                <span>{food.family_member_name} will bring </span>
+                <span style={{color: "#218838"}}>{foodState}</span>
+            </>
+        )
+    }
+
+    const notBringingFood = () => {
+        return (
+            <>
+                <span>{food.family_member_name} isn't bringing </span>
+                <span style={{color: "rgb(153, 77, 50)"}}>anything</span>
+            </>
+        )
+    }
+
     return (
         <li key={food.id} className="food-item">
             <div className="guest-food">
-                {food.name ? `${food.family_member_name} will bring ${foodState}` : `${food.family_member_name} isn't bringing anything`}
+                {food.name ? bringingFood() : notBringingFood()}
             </div>
+
+            {/* <div className="guest-food">
+                {food.name ? `${food.family_member_name} will bring ${foodState}` : `${food.family_member_name} isn't bringing anything`}
+            </div> */}
             <div className="change-delete">
                 {food.name ? changeFoodFunctions() : addFoodForm()}
             </div>
