@@ -187,33 +187,20 @@ class Events(Resource):
 api.add_resource(Events, '/events')
 
 class EventById(Resource):
+
+    def get(self, id):
+        event = Event.query.filter_by(id=id).first().to_dict()
+        return make_response(event, 200)
+
     def delete(self, id):
         event = Event.query.filter_by(id=id).first()
         db.session.delete(event)
         db.session.commit()
         return make_response({},204)
 
-
-
-
 api.add_resource(EventById, '/events/<id>')
 
-@app.route('/events/<int:event_id>', methods=['GET', 'DELETE'])
-def get_or_delete_event(event_id):
-    if request.method == 'GET':
-        event = Event.query.get(event_id)
-        if event:
-            return make_response(event.to_dict(), 200)
-        else:
-            return {'message': 'Event not found'}, 404
-    elif request.method == 'DELETE':
-        event = Event.query.get(event_id)
-        if event:
-            db.session.delete(event)
-            db.session.commit()
-            return make_response({'message': 'Event has been deleted'}, 200)
-        else:
-            return {'message': 'Event not found'}, 404
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
