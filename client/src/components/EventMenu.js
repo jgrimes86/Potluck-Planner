@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Outlet, Navigate, useNavigate } from "react-router-dom";
+// import { Outlet, Navigate, useNavigate } from "react-router-dom";
 
-import Navbar from "./Navbar";
 
 function EventMenu() {
   const [events, setEvents] = useState([]);

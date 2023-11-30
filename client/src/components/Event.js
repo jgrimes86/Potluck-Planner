@@ -11,7 +11,7 @@ function Event() {
   const { event, setEvent, setIsLoggedIn, setUser } = useOutletContext()
 
   // console.log("EVENT: ", event)
-  console.log("Foods:", foods)
+  // console.log("Foods:", foods)
 
   useEffect(() => {
     fetch(`http://localhost:5555/events/${id}`)

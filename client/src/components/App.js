@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Login from "./Login";
-import EventMenu from "./EventMenu";
-import AddFamily from "./AddFamily";
-import Event from "./Event"; 
+// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+// import Login from "./Login";
+// import EventMenu from "./EventMenu";
+// import AddFamily from "./AddFamily";
+// import Event from "./Event"; 
 import FoodImage from "./Food.png";
 
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
@@ -16,9 +16,8 @@ function App() {
 
   const navigate = useNavigate()
   const location = useLocation();
-  // const atHome = (location.pathname === "/") ? "nav-bar nav-home" : "nav-bar";
 
-  console.log(user)
+  // console.log(user)
 
   useEffect(() => {
     fetch("http://localhost:5555/check_session").then((r) => {
