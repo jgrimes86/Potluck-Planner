@@ -42,22 +42,6 @@ function AddNewFamilyMember({addToJoinTable, allFamily, setAllFamily}) {
         },
     })
 
-    // // create new foods table row to link event and family_member
-    // function link_event_and_family_member(familyMember) {
-        
-    //     fetch('http://localhost:5555/foods', {
-    //         method: 'POST',
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         // MUST GET EVENT ID FROM EVENT
-    //         body: JSON.stringify({
-    //             family_member_id: familyMember.id,
-    //             event_id: 2
-    //         })
-    //     })
-    // }
-
     return (
         <div>
             <h3 className = "invitefamformtagline">Invite Family Member:</h3>

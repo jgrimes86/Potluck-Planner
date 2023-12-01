@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 function FoodItem({food, handleDeleteFood, handleChangeFood}) {
     const [changeForm, setChangeForm] = useState(false)

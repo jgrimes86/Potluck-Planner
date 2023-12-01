@@ -1,17 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useFormik } from "formik";
 
 function FoodForm({ eventId, handleNewFood, foods }) {
-    // const [familyMembers, setFamilyMembers] = useState([]);
 
-    // useEffect(() => {
-    //     fetch("http://localhost:5555/family_members")
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             setFamilyMembers(data);
-    //         })
-    //         .catch((error) => console.error("Error fetching family members:", error));
-    // }, []);
 
     const formik = useFormik({
         initialValues: {

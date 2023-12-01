@@ -5,7 +5,7 @@ import { useOutletContext } from "react-router-dom";
 
 function Login() {
   const [signup, setSignup] = useState(false);
-  const [loginError, setLoginError] = useState(null); // State to store login error
+  const [loginError, setLoginError] = useState(null);
 
   const { setIsLoggedIn, setUser } = useOutletContext();
 

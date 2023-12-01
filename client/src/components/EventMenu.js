@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AddEvent from "./AddEvent";
 
-// import { Outlet, Navigate, useNavigate } from "react-router-dom";
 
 function EventMenu() {
   const [events, setEvents] = useState([]);
@@ -59,13 +58,3 @@ function EventMenu() {
 
 export default EventMenu;
 
-//create form in this EventMenuJS. For the event itself, get the name
-//of the event, find a way to get the logged-in user's ID and set it
-//to the organizer's ID
-
-//You should be using a get request to get all of the events
-// that the organizer has created
-
-//turn the rendered event into a button that sends .
-
-//make the clicked-on event save in state in app

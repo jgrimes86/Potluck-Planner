@@ -10,8 +10,6 @@ from sqlalchemy import MetaData
 from flask_bcrypt import Bcrypt
 
 
-# Local imports
-
 # Instantiate app, set attributes
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
