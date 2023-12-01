@@ -1,9 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-// import Login from "./Login";
-// import EventMenu from "./EventMenu";
-// import AddFamily from "./AddFamily";
-// import Event from "./Event"; 
 import FoodImage from "./Food.png";
 
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
@@ -18,7 +13,7 @@ function App() {
   const navigate = useNavigate()
   const location = useLocation();
 
-  console.log(invitedFamily)
+  // console.log(invitedFamily)
 
   useEffect(() => {
     fetch("/check_session").then((r) => {
@@ -45,11 +40,6 @@ function App() {
     }
   }, [isLoggedIn])
 
-  // function handleLogin() {
-  //   // setUser(user);
-  //   setIsLoggedIn(true);
-  // }
-
   function handleLogout() {
     fetch("/logout").then((r) => {
       if (r.ok) {
@@ -60,7 +50,6 @@ function App() {
   }
 
   const context = {
-    // handleLogin,
     handleLogout,
     setEvent,
     event,

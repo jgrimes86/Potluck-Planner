@@ -5,6 +5,7 @@ import { useOutletContext } from "react-router-dom";
 
 function Login() {
   const [signup, setSignup] = useState(false);
+  // const [error, setError] = useState("")
 
   const { setIsLoggedIn, setUser } = useOutletContext();
 
@@ -12,7 +13,7 @@ function Login() {
     setSignup(!signup);
   }
 
-  // Login validation, formik, and form
+//////////////////////////  LOGIN STARTS HERE ///////////////////////////////////
   const loginSchema = yup.object().shape({
     username: yup.string().required("Must enter a username"),
   });
@@ -20,6 +21,7 @@ function Login() {
   const loginFormik = useFormik({
     initialValues: {
       username: "",
+      password: "",
     },
     validationSchema: loginSchema,
     validateOnChange: false,
@@ -35,8 +37,12 @@ function Login() {
           r.json().then((user) => {
             setIsLoggedIn(true);
             setUser(user);
+            // setError("")
           });
         }
+        // else {
+        //   r.json().then(message => setError(message))
+        // }
       });
     },
   });
@@ -54,23 +60,38 @@ function Login() {
             value={loginFormik.values.username}
             onChange={loginFormik.handleChange}
           />
-          <button id="loginsubmitbutton" type="submit">
-            Log In
-          </button>
+
+          <label htmlFor="password">Enter Password:</label>
+          <input
+            type="password"
+            name="password"
+            value={loginFormik.values.password}
+            onChange={loginFormik.handleChange}
+          />
+
           <button id="loginsignupbutton" onClick={handleClick}>
             Sign Up
           </button>
+          <button id="loginsubmitbutton" type="submit">
+            Log In
+          </button>
         </form>
+        {/* {error ? <p>{error["error"]}</p> : null} */}
       </>
     );
   };
+//////////////////////////  LOGIN ENDS HERE ///////////////////////////////////
 
-  // Signup validation, form, and formik
+
+
+//////////////////////////  SIGNUP STARTS HERE ///////////////////////////////////
   const signupSchema = yup.object().shape({
     firstName: yup.string().required("Must enter a first name").max(15),
     lastName: yup.string().required("Must enter a last name").max(15),
     username: yup.string().required("Must enter a username").max(15),
     email: yup.string().email("Invalid email"),
+    password: yup.string().required("Must enter a password"),
+    confirm_password: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match')
   });
 
   const signupFormik = useFormik({
@@ -79,6 +100,8 @@ function Login() {
       lastName: "",
       username: "",
       email: "",
+      password: "",
+      confirm_password: ""
     },
     validationSchema: signupSchema,
     validateOnChange: false,
@@ -89,7 +112,8 @@ function Login() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values, null, 2),
-      }).then((r) => {
+      })
+      .then((r) => {
         if (r.ok) {
           r.json().then((user) => {
             setIsLoggedIn(user);
@@ -145,12 +169,34 @@ function Login() {
           />
           <p style={{ color: "red" }}>{signupFormik.errors.email}</p>
 
+          <label htmlFor="password">Enter Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={signupFormik.values.password}
+            onChange={signupFormik.handleChange}
+          />
+          <p style={{ color: "red" }}>{signupFormik.errors.email}</p>
+
+          <label htmlFor="confirm_password">Re-enter Password to Confirm:</label>
+          <input
+            type="password"
+            id="confirm_password"
+            name="confirm_password"
+            value={signupFormik.values.confirm_password}
+            onChange={signupFormik.handleChange}
+          />
+          <p style={{ color: "red" }}>{signupFormik.errors.email}</p>
+
           <button type="submit">Submit</button>
         </form>
         <button onClick={handleClick}>Go To Login</button>
       </>
     );
   };
+//////////////////////////  SIGNUP ENDS HERE ///////////////////////////////////
+
 
   return <div>{signup ? signupForm() : loginForm()}</div>;
 }

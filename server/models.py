@@ -1,7 +1,7 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
 
-from config import db
+from config import db, bcrypt
 
 
 class FamilyMember(db.Model, SerializerMixin):
@@ -68,6 +68,7 @@ class Organizer(db.Model, SerializerMixin):
     last_name = db.Column(db.String)
     email = db.Column(db.String)
     username = db.Column(db.String)
+    _password_hash = db.Column(db.String)
 
     events = db.relationship('Event', back_populates='organizer')
 
@@ -75,3 +76,15 @@ class Organizer(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f'<Organizer {self.id}: {self.first_name} {self.last_name}>'
+
+    @property
+    def password_hash(self):
+        return self._password_hash
+
+    @password_hash.setter
+    def password_hash(self, password):
+        password_hash = bcrypt.generate_password_hash(password.encode('utf-8'))
+        self._password_hash = password_hash.decode('utf-8')
+
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(self._password_hash, password.encode('utf-8'))

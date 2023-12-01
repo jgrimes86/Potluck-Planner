@@ -11,16 +11,21 @@ class Login(Resource):
     def post(self):
         username = request.json['username']
         user = Organizer.query.filter_by(username=username).first()
-        session['user_id'] = user.id
-        return user.to_dict()
+
+        password = request.json['password']
+
+        if user.authenticate(password):
+            session['user_id'] = user.id
+            return user.to_dict()
+
+        return make_response({"error": "Invalid username or password"}, 401)
 
 api.add_resource(Login, '/login')
 
 class Signup(Resource):
     def post(self):
         data = request.json
-        user = Organizer(first_name=data['firstName'], last_name=data['lastName'], email=data['email'],
-                          username=data['username'])
+        user = Organizer(first_name=data['firstName'], last_name=data['lastName'], email=data['email'], username=data['username'], password_hash=data['password'])
         db.session.add(user)
         db.session.commit()
         return make_response(user.to_dict(), 200)
@@ -28,7 +33,7 @@ class Signup(Resource):
 api.add_resource(Signup, '/signup')
 
 class Logout(Resource):
-    def delete(self):
+    def get(self):
         session['user_id'] = None
         return make_response('', 204)
 

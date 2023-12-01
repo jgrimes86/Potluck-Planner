@@ -7,16 +7,19 @@ function Navbar({event, setUser, setIsLoggedIn}) {
     return (
         <nav>
             <NavLink
+                end
                 to="/events"
             >
                 Event Menu
             </NavLink>
             <NavLink
+                end
                 to={`/events/${event.id}`}
             >
                 Event
             </NavLink>
             <NavLink
+                end
                 to={`/events/familymembers/${event.id}`}
             >
                 Family Members

@@ -2,33 +2,21 @@
 .login-form {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* Two columns */
-  grid-template-rows: repeat(2, auto); /* Two rows */
+  /* grid-template-rows: repeat(2, auto); */
   gap: 10px; /* Adjust the gap between grid items */
 }
 
 /* LOGIN FORM LABEL */
-.login-form label {
+.login-form label, #loginsignupbutton {
   grid-column: 1; /* First column */
-  grid-row: 1; /* First row */
+
 }
 
 /* LOGIN FORM TEXT INPUT */
-.login-form input {
+.login-form input, #loginsubmitbutton {
   grid-column: 2; /* Second column */
-  grid-row: 1; /* First row */
 }
 
-/* LOGIN SUBMIT BUTTON */
-#loginsubmitbutton {
-  grid-column: 1; /* First column */
-  grid-row: 2; /* Second row */
-}
-
-/* LOGIN SIGNUP BUTTON */
-#loginsignupbutton {
-  grid-column: 2; /* Second column */
-  grid-row: 2; /* Second row */
-}
 
 
 
@@ -85,6 +73,10 @@ nav a {
 
 nav a:hover {
   background-color: #218838;
+}
+
+.active {
+  background-color: pink;
 }
 
 button {

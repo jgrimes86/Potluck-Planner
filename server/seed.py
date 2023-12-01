@@ -22,8 +22,8 @@ with app.app_context():
     Food.query.delete()
     Organizer.query.delete()
 
-    o1 = Organizer(first_name="John", last_name="Doe", email="email@email.com", username="jdoe")
-    o2 = Organizer(first_name="Eddie", last_name="Twoshoes", email="edd@email.com", username="eddie2")
+    o1 = Organizer(first_name="John", last_name="Doe", email="email@email.com", username="jdoe", password_hash="123")
+    o2 = Organizer(first_name="Eddie", last_name="Twoshoes", email="edd@email.com", username="eddie2", password_hash='abc')
 
     db.session.add_all([o1, o2])
     db.session.commit()
