@@ -25,6 +25,7 @@ function Navbar({event, setUser, setIsLoggedIn}) {
                 Family Members
             </NavLink>
             <NavLink
+                end
                 to="/login"
                 onClick={() => {setIsLoggedIn(false); setUser(null)}}
             >

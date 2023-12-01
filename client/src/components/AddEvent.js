@@ -32,7 +32,7 @@ function AddEvent({setEvents, events}){
     
     <div>
 
-        <h3>New Event Form</h3>
+        <h3 className = "neweventform">New Event Form</h3>
         <form onSubmit={formik.handleSubmit}>
             <label htmlFor="event"></label>
             <input name="event" type="text" value={formik.values.event} onChange={formik.handleChange}/>

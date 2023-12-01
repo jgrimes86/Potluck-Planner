@@ -4,10 +4,8 @@ import AddEvent from "./AddEvent";
 
 // import { Outlet, Navigate, useNavigate } from "react-router-dom";
 
-
 function EventMenu() {
   const [events, setEvents] = useState([]);
-  
 
   useEffect(() => {
     fetch("/events")
@@ -40,11 +38,16 @@ function EventMenu() {
         {events.map((event) => (
           <li key={event.id}>
             <Link to={`/events/${event.id}`}>{event.name}</Link>
-            <button onClick={() => handleDelete(event.id)}>Delete</button>
+            <button
+              className="deletebutton"
+              onClick={() => handleDelete(event.id)}
+            >
+              X
+            </button>
           </li>
         ))}
       </ul>
-      <AddEvent setEvents = {setEvents} events={events}/>
+      <AddEvent setEvents={setEvents} events={events} />
     </div>
   );
 }

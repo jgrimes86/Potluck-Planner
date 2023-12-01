@@ -1,11 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useOutletContext } from "react-router-dom";
 
 function Login() {
   const [signup, setSignup] = useState(false);
-  // const [error, setError] = useState("")
+  const [loginError, setLoginError] = useState(null); // State to store login error
 
   const { setIsLoggedIn, setUser } = useOutletContext();
 
@@ -32,17 +32,21 @@ function Login() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values, null, 2),
-      }).then((r) => {
+      })
+      .then((r) => {
         if (r.ok) {
-          r.json().then((user) => {
+          return r.json().then((user) => {
             setIsLoggedIn(true);
             setUser(user);
             // setError("")
           });
+        } else {
+          setLoginError("Invalid login credentials. Please try again.");
         }
-        // else {
-        //   r.json().then(message => setError(message))
-        // }
+      })
+      .catch((error) => {
+        console.error("Error during login:", error);
+        setLoginError("Invalid login credentials. Please try again.");
       });
     },
   });
@@ -50,7 +54,7 @@ function Login() {
   const loginForm = () => {
     return (
       <>
-        <h1>Login</h1>
+        <h1 className="logintitle">User Login</h1>
 
         <form onSubmit={loginFormik.handleSubmit} className="login-form">
           <label htmlFor="username">Enter User Name:</label>
@@ -76,7 +80,7 @@ function Login() {
             Log In
           </button>
         </form>
-        {/* {error ? <p>{error["error"]}</p> : null} */}
+        {loginError && <p style={{ color: "red" }}>{loginError}</p>}
       </>
     );
   };

@@ -60,7 +60,7 @@ function AddNewFamilyMember({addToJoinTable, allFamily, setAllFamily}) {
 
     return (
         <div>
-            <h3>Invite Family Member:</h3>
+            <h3 className = "invitefamformtagline">Invite Family Member:</h3>
             <form onSubmit={addFamilyFormik.handleSubmit}>
                 <label htmlFor="firstName">Enter First Name:</label>
                 <input 
