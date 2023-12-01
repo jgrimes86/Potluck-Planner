@@ -41,7 +41,7 @@ function FoodForm({ eventId, handleNewFood, foods }) {
 
     return (
         <form id="add-food-container" onSubmit={formik.handleSubmit}>
-            <label id="foodName-label" className="label" htmlFor="foodName">Food Name:</label>
+            <label id="foodName-label" htmlFor="foodName">Food Name:</label>
             <input
                 type="text"
                 id="foodName"
@@ -66,7 +66,7 @@ function FoodForm({ eventId, handleNewFood, foods }) {
                 ))}
             </select>
 
-            <button id="add-food-button" className="input" type="submit">Submit</button>
+            <button id="add-food-button" type="submit">Submit</button>
         </form>
     );
 }
