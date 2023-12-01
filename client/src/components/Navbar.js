@@ -6,22 +6,22 @@ function Navbar({event, setUser, setIsLoggedIn}) {
 
     return (
         <nav>
-            <NavLink
+            <NavLink end 
                 to="/events"
             >
                 Event Menu
             </NavLink>
-            <NavLink
+            <NavLink end
                 to={`/events/${event.id}`}
             >
                 Event
             </NavLink>
-            <NavLink
+            <NavLink end
                 to={`/events/familymembers/${event.id}`}
             >
                 Family Members
             </NavLink>
-            <NavLink
+            <NavLink end
                 to="/login"
                 onClick={() => {setIsLoggedIn(false); setUser(null)}}
             >

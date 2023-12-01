@@ -52,7 +52,7 @@ function FoodForm({ eventId, handleNewFood, foods }) {
             />
 
             <label id="familyMemberId-label" htmlFor="familyMemberId">Select Family Member:</label>
-            <select
+            <select className = "dropdown"
                 id="familyMemberId"
                 name="familyMemberId"
                 onChange={formik.handleChange}

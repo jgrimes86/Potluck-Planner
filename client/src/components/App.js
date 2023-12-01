@@ -73,9 +73,9 @@ function App() {
   return (
     <div>
       <header>
-        <h1>POTLUCK</h1>
+        <h1 className = "Loginheader">POTLUCK</h1>
         <img src={FoodImage} alt="Food" />
-        <h1>PLANNER</h1>
+        <h1 className = "Loginheader">PLANNER</h1>
       </header>
       <Outlet context={context} />
       {(isLoggedIn && location.pathname === "/events") ? <button onClick={handleLogout}>Log Out</button> : null}

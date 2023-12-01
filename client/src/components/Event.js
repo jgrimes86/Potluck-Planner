@@ -84,9 +84,12 @@ function Event() {
     <div>
       <Navbar event={event} setUser={setUser} setIsLoggedIn={setIsLoggedIn} />
 
-      {event? <h1>{event.name}</h1> : null}
+      <h3 className = "organizingtagline">You're currently planning...</h3>
 
-      <h3>Assign Foods to Guests:</h3>
+
+      {event? <h1 className = "selectedevent">{event.name}</h1> : null}
+
+      <h3 className = "assignfoodstagline">Assign Some Foods to Your Guests!</h3>
 
       <ul id="food-table">
         {event ? foodList : <div>Loading...</div>}
