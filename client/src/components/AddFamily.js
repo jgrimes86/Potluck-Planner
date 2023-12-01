@@ -1,22 +1,20 @@
+import React, { useState, useEffect } from "react";
+import { useParams, useOutletContext } from "react-router-dom";
 
-import { useState, useEffect } from "react";
-
-import FamilyListItem from "./FamilyListItem";
-import AddFamilyForm from "./AddFamilyForm";
+import AddNewFamilyMember from "./AddNewFamilyMember";
 import AllFamilyMembers from "./AllFamilyMembers";
+import Navbar from "./Navbar";
 
 function AddFamily() {
-    const [invitedFamily, setInvitedFamily] = useState([])
-
-    // NEED TO HAVE A PROP FOR THE EVENT THAT CAN BE USED TO CREATE foods TABLE ROW
+    const [allFamily, setAllFamily] = useState([]);
+    const { event, setIsLoggedIn, setUser, invitedFamily, setInvitedFamily } = useOutletContext();
+    const { id } = useParams();
 
     useEffect(() => {
-        // MUST CHANGE EVENT ID TO
-        let event_id=2
-        fetch('http://localhost:5555/family_members/'+event_id)
+        fetch('/family_members')
         .then(r => {
             if (r.ok) {
-                r.json().then(data => setInvitedFamily(data))
+                r.json().then(data => setAllFamily(data))
             }
         })
     }, [])
@@ -24,52 +22,39 @@ function AddFamily() {
 
     // create new foods table row to link event and family_member
     function addToJoinTable(familyMember) {
-        fetch('http://localhost:5555/foods', {
+        fetch('/foods', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
             },
-            // MUST GET EVENT ID FROM EVENT
             body: JSON.stringify({
                 family_member_id: familyMember.id,
-                event_id: 2
+                event_id: id
             })
-        })
+        });
     }
 
-
-    function deleteFamilyMember(memberId) {
-        fetch('http://localhost:5555/family_members/'+memberId, {
-            method: 'DELETE'
-        })
-        .then(r => {
-            if (r.ok) {
-                setInvitedFamily(invitedFamily.filter(fm => {if (fm.id !== memberId) return fm}))
-            }
-        })
-    }
-
-    const familyList = invitedFamily.map(fm => {
-        return <FamilyListItem key={fm.id} familyMember={fm} deleteFamilyMember={deleteFamilyMember} />
-    })
-
+    const familyList = invitedFamily.map(fm => (
+        <li key={fm.id}>
+            {`${fm.first_name} ${fm.last_name}`}
+        </li>
+    ));
 
     return (
         <div>
-            
-            <h1>Add Family Members</h1>
-
+            <Navbar event={event} setUser={setUser} setIsLoggedIn={setIsLoggedIn} />
+            <h1 className = "eventdisplaytextfm">{event ? event.name : ""}</h1>
+            <h1 className = "addfamilytagline">Add Family Members to Your Event!</h1>
+            <h3 className = "invitedfamtagline">Family Members That Have Been Invited:</h3>
             <ul>
                 {familyList}
             </ul>
 
-            <AddFamilyForm invitedFamily={invitedFamily} setInvitedFamily={setInvitedFamily} addToJoinTable={addToJoinTable} />
+            <AddNewFamilyMember addToJoinTable={addToJoinTable} allFamily={allFamily} setAllFamily={setAllFamily} />
 
-            <AllFamilyMembers addToJoinTable={addToJoinTable} invitedFamily={invitedFamily} setInvitedFamily={setInvitedFamily} />
-
+            <AllFamilyMembers addToJoinTable={addToJoinTable} allFamily={allFamily} setAllFamily={setAllFamily} />
         </div>
-    )
-
+    );
 }
 
-export default AddFamily
+export default AddFamily;

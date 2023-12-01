@@ -1,8 +1,10 @@
-
+import { useOutletContext } from "react-router-dom";
 import {useFormik} from "formik";
 import * as yup from "yup";
 
-function AddFamilyForm({invitedFamily, setInvitedFamily, addToJoinTable}) {
+function AddNewFamilyMember({addToJoinTable, allFamily, setAllFamily}) {
+
+    const {invitedFamily, setInvitedFamily} = useOutletContext()
 
     // form for add family member to event
     const addFamilySchema = yup.object().shape({
@@ -20,7 +22,7 @@ function AddFamilyForm({invitedFamily, setInvitedFamily, addToJoinTable}) {
         validationSchema: addFamilySchema,
         validateOnChange: false,
         onSubmit: values => {
-            fetch('http://localhost:5555/family_members', {
+            fetch('/family_members', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
@@ -31,7 +33,8 @@ function AddFamilyForm({invitedFamily, setInvitedFamily, addToJoinTable}) {
                 if (r.ok) {
                     r.json().then(familyMember => {
                         addToJoinTable(familyMember);
-                        setInvitedFamily([...invitedFamily, familyMember])
+                        setInvitedFamily([...invitedFamily, familyMember]);
+                        setAllFamily([...allFamily, familyMember])
                         addFamilyFormik.resetForm()
                     })
                 }
@@ -57,7 +60,7 @@ function AddFamilyForm({invitedFamily, setInvitedFamily, addToJoinTable}) {
 
     return (
         <div>
-            <h3>Invite Family Member:</h3>
+            <h3 className = "invitefamformtagline">Invite Family Member:</h3>
             <form onSubmit={addFamilyFormik.handleSubmit}>
                 <label htmlFor="firstName">Enter First Name:</label>
                 <input 
@@ -96,4 +99,4 @@ function AddFamilyForm({invitedFamily, setInvitedFamily, addToJoinTable}) {
 
 }
 
-export default AddFamilyForm
+export default AddNewFamilyMember

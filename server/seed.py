@@ -22,8 +22,8 @@ with app.app_context():
     Food.query.delete()
     Organizer.query.delete()
 
-    o1 = Organizer(first_name="John", last_name="Doe", email="email@email.com", username="jdoe")
-    o2 = Organizer(first_name="Eddie", last_name="Twoshoes", email="edd@email.com", username="eddie2")
+    o1 = Organizer(first_name="John", last_name="Doe", email="email@email.com", username="jdoe", password_hash="123")
+    o2 = Organizer(first_name="Eddie", last_name="Twoshoes", email="edd@email.com", username="eddie2", password_hash='abc')
 
     db.session.add_all([o1, o2])
     db.session.commit()
@@ -39,8 +39,10 @@ with app.app_context():
     fm1 = FamilyMember(first_name="Betsy", last_name="Ross", email="email@email.com")
     fm2 = FamilyMember(first_name="Aaron", last_name="Burr", email="email@email.com")
     fm3 = FamilyMember(first_name="Winston", last_name="Churchill", email="email@email.com")
+    fm4 = FamilyMember(first_name="Abraham", last_name="Lincoln", email="email@email.com")
+    fm5 = FamilyMember(first_name="Sally", last_name="Ride", email="email@email.com")
 
-    db.session.add_all([fm1, fm2, fm3])
+    db.session.add_all([fm1, fm2, fm3, fm4, fm5])
     db.session.commit()
 
 

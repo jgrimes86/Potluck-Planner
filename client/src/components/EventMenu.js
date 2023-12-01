@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import AddEvent from "./AddEvent";
+
+// import { Outlet, Navigate, useNavigate } from "react-router-dom";
 
 function EventMenu() {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5555/events")
+    fetch("/events")
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data)) {
@@ -21,7 +24,7 @@ function EventMenu() {
     const shouldDelete = window.confirm("Are you sure you want to delete this event?");
   
     if (shouldDelete) {
-      fetch("http://localhost:5555/events/" + id, {
+      fetch("/events/" + id, {
         method: "DELETE"
       })
         .then(r => {
@@ -38,13 +41,18 @@ function EventMenu() {
       <h1>Event Menu</h1>
       <ul>
         {events.map((event) => (
-          // Use Link to make each event clickable and navigate to the Event page
           <li key={event.id}>
-            <Link to={`/event/${event.id}`}>{event.name}</Link>
-            <button onClick={() => handleDelete(event.id)}>Delete</button>
+            <Link to={`/events/${event.id}`}>{event.name}</Link>
+            <button
+              className="deletebutton"
+              onClick={() => handleDelete(event.id)}
+            >
+              X
+            </button>
           </li>
         ))}
       </ul>
+      <AddEvent setEvents={setEvents} events={events} />
     </div>
   );
 }

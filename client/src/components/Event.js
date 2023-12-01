@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useOutletContext } from "react-router-dom";
 import FoodForm from "./FoodForm";
 import FoodItem from "./FoodItem";
+import Navbar from "./Navbar";
 
 function Event() {
   const { id } = useParams();
-  const [event, setEvent] = useState(null);
+  // const [event, setEvent] = useState(null);
   const [foods, setFoods] = useState([]);
+  const { event, setEvent, setIsLoggedIn, setUser, invitedFamily } = useOutletContext()
 
   // console.log("EVENT: ", event)
-  console.log("Foods:", foods)
+  // console.log("Foods:", foods)
 
   useEffect(() => {
-    fetch(`http://localhost:5555/events/${id}`)
+    fetch(`/events/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setEvent(data);
       })
       .catch((error) => console.error("Error fetching event details:", error));
 
-    fetch(`http://localhost:5555/foods?event_id=${id}`)
+    fetch(`/foods?event_id=${id}`)
       .then((response) => response.json())
       .then((data) => {
         setFoods(data);
@@ -30,7 +32,7 @@ function Event() {
   }, []);
 
   function handleDeleteFood(foodId) {
-    fetch(`http://localhost:5555/foods/${foodId}`, {
+    fetch(`/foods/${foodId}`, {
       method: "DELETE",
     })
     .then(r => {
@@ -44,7 +46,7 @@ function Event() {
   }
 
   function handleChangeFood(foodId, food) {
-    fetch(`http://localhost:5555/foods/${foodId}`, {
+    fetch(`/foods/${foodId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"
@@ -80,13 +82,22 @@ function Event() {
   
   return (
     <div>
-      {event? <h1>{event.name}</h1> : null}
-      <FoodForm eventId={id} handleNewFood={handleNewFood} />
+      <Navbar event={event} setUser={setUser} setIsLoggedIn={setIsLoggedIn} />
 
-      <h2>Foods:</h2>
-      <ul>
+      <h3 className = "organizingtagline">You're currently planning...</h3>
+
+
+      {event? <h1 className = "selectedevent">{event.name}</h1> : null}
+
+      <h3 className = "assignfoodstagline">Assign Some Foods to Your Guests!</h3>
+
+      <ul id="food-table">
         {event ? foodList : <div>Loading...</div>}
       </ul>
+
+      <h3>Add Additional Food Assignment for a Guest:</h3>
+      <FoodForm eventId={id} handleNewFood={handleNewFood} foods={foods} />
+
     </div>
   );
 

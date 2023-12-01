@@ -46,14 +46,33 @@ function FoodItem({food, handleDeleteFood, handleChangeFood}) {
         )
     }
  
-    return (
-        <li key={food.id}>
-            {food.family_member_name} will bring {food.name ? foodState : addFoodForm()}
-            {food.name ? changeFoodFunctions() : null}
+    const bringingFood = () =>{
+        return (
+            <>
+                <span>{food.family_member_name} will bring </span>
+                <span style={{color: "#218838"}}>{foodState}</span>
+            </>
+        )
+    }
 
-            {/* {changeForm ? foodUpdateForm() : changeFoodButton()}
-            <button onClick={() => handleDeleteFood(food.id)}>Delete Food</button> */}
-        
+    const notBringingFood = () => {
+        return (
+            <>
+                <span>{food.family_member_name} isn't bringing </span>
+                <span style={{color: "rgb(153, 77, 50)"}}>anything</span>
+            </>
+        )
+    }
+
+    return (
+        <li key={food.id} className="food-item">
+            <div className="guest-food">
+                {food.name ? bringingFood() : notBringingFood()}
+            </div>
+
+            <div className="change-delete">
+                {food.name ? changeFoodFunctions() : addFoodForm()}
+            </div>
         </li>
     )
 }

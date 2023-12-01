@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 
-function FoodForm({ eventId, handleNewFood }) {
-    const [familyMembers, setFamilyMembers] = useState([]);
+function FoodForm({ eventId, handleNewFood, foods }) {
+    // const [familyMembers, setFamilyMembers] = useState([]);
 
-    useEffect(() => {
-        fetch("http://localhost:5555/family_members")
-            .then((response) => response.json())
-            .then((data) => {
-                setFamilyMembers(data);
-            })
-            .catch((error) => console.error("Error fetching family members:", error));
-    }, []);
+    // useEffect(() => {
+    //     fetch("http://localhost:5555/family_members")
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             setFamilyMembers(data);
+    //         })
+    //         .catch((error) => console.error("Error fetching family members:", error));
+    // }, []);
 
     const formik = useFormik({
         initialValues: {
@@ -19,7 +19,7 @@ function FoodForm({ eventId, handleNewFood }) {
             familyMemberId: "",
         },
         onSubmit: (values) => {
-            fetch("http://localhost:5555/foods", {
+            fetch("/foods", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -40,32 +40,33 @@ function FoodForm({ eventId, handleNewFood }) {
     });
 
     return (
-        <form onSubmit={formik.handleSubmit}>
-            <label htmlFor="foodName">Food Name:</label>
+        <form id="add-food-container" onSubmit={formik.handleSubmit}>
+            <label id="foodName-label" htmlFor="foodName">Food Name:</label>
             <input
                 type="text"
                 id="foodName"
+                className="input"
                 name="foodName"
                 onChange={formik.handleChange}
                 value={formik.values.foodName}
             />
 
-            <label htmlFor="familyMemberId">Select Family Member:</label>
-            <select
+            <label id="familyMemberId-label" htmlFor="familyMemberId">Select Family Member:</label>
+            <select className = "dropdown"
                 id="familyMemberId"
                 name="familyMemberId"
                 onChange={formik.handleChange}
                 value={formik.values.familyMemberId}
             >
                 <option value="">Select a Family Member</option>
-                {familyMembers.map((familyMember) => (
-                    <option key={familyMember.id} value={familyMember.id}>
-                        {familyMember.first_name} {familyMember.last_name}
+                {foods.map((food) => (
+                    <option key={food.id} value={food.id}>
+                        {food.family_member_name}
                     </option>
                 ))}
             </select>
 
-            <button type="submit">Submit</button>
+            <button id="add-food-button" type="submit">Submit</button>
         </form>
     );
 }

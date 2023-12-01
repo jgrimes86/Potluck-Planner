@@ -1,85 +1,169 @@
-:root {
-  --bg: #282c34;
-  --header: #fff;
-  --link: #fb9461;
-  --text: hsla(0, 0%, 100%, 0.88);
-  --bubble: #61dafb;
+/* ALL THINGS */
+* {
+  outline: 1pt dashed red;
+  text-align: center;
+  color: rgb(223, 226, 226);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* LOGIN FORM CONTAINER */
+.login-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  /* grid-template-rows: repeat(2, auto); */
+  gap: 10px; /* Adjust the gap between grid items */
+}
+
+
+/* LOGIN FORM LABEL */
+.login-form label, #loginsignupbutton {
+  grid-column: 1; /* First column */
+  text-align: right;
+  width: 200px;
+}
+
+/* LOGIN FORM TEXT INPUT */
+.login-form input, #loginsubmitbutton {
+  grid-column: 2; /* Second column */
+  width: 200px;
+  box-sizing: border-box;
+}
+
+
+/* LOGIN PAGE "LOGIN" TEXT*/
+.logintitle {
+  font-family: "Courier New", Courier, monospace;
+  margin-bottom: 20px;
+}
+
+/* LOGIN PAGE MAIN TITLE */
+.Loginheader {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 50px;
+}
+
+#familyMemberId option,
+input,
+select {
+  color: black;
+}
+
+/* FAMILY MEMBER PAGE: "SELECT FAMILY MEMBER..." TEXT */
+.selectfamilymembertext {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 28px;
+}
+
+/*  ADD FAMILY MEMBER PAGE: UNORDERED LIST OF FAMILY MEMBERS TO CHOOSE FROM AT BOTTOM OF PAGE */
+.familymemberoptions {
+  font-family: "Courier New", Courier, monospace;
+  display: grid;
+  list-style: none;
+  justify-items: right; /* Align all items in the column to the center */
+  width: calc(55%);
+  gap: 10px;
+}
+
+/*  ADD FAMILY MEMBER PAGE: EVENT-DISPLAY TEXT ON FAMILY MEMBER PAGE */
+.eventdisplaytextfm {
+  margin-top: 40px;
+  margin-bottom: 50px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 50px;
+  font-weight: 550;
+  color: rgb(187, 195, 78);
+}
+
+/*  ADD FAMILY MEMBER PAGE: ADD FAMILY MEMBERS TAGLINE */
+.addfamilytagline {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+/*  ADD FAMILY MEMBER PAGE: INVITED FAMILY MEMBERS TAGLINE */
+.invitedfamtagline {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* ADD FAMILY MEMBER PAGE: INVITED FAMILY FORM TITLE/TAGLINE */
+.invitefamformtagline {
+  margin-top: 20px;
+}
+
+.familymemberoptions button {
+  width: 80px;
+}
+
+.familymemberoptions .deletebutton {
+  width: 20px;
+  font-size: 10px;
+}
+/* ALL DELETE BUTTONS */
+.deletebutton {
+  background: rgb(116, 18, 18);
+  width: 20px;
+  padding: 2px; /* Adjust padding as needed */
+  font-size: 8px;
+}
+
+.deletebutton:hover {
+  background-color: #ff2420;
 }
 
 body {
   font-family: "Arial", sans-serif;
-  background: linear-gradient(45deg, #141e30, #243b55);
-  color: var(--text);
-  overflow: hidden;
+  background: #243b55;
+  overflow: scroll;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 100vh;
 }
 
-.container {
-  max-width: 800px;
-  padding: 20px;
-  position: relative;
-  z-index: 1;
+h1 {
   text-align: center;
+  justify-content: center;
 }
 
 header {
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: end;
+  align-items: center;
 }
 
 nav a {
-  color: var(--header);
-  text-decoration: none;
-  margin-right: 10px;
+  background-color: rgb(153, 77, 50);
+  color: rgb(223, 226, 226);
+  border: firebrick;
+  margin-right: 5px;
+  margin-left: 5px;
+  padding: 3px 15px;
+  border-radius: 5px;
+  font-size: 18x;
   font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
   position: relative;
   z-index: 2;
-  transition: color 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 nav a:hover {
-  color: var(--bubble);
+  background-color: rgb(94, 113, 72);
 }
 
-nav button {
-  background: var(--bubble);
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  z-index: 2;
+.active {
+  background-color: pink;
 }
 
-nav button:hover {
-  background: rgb(193, 93, 57);
-}
-
-.bubbles {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.bubble {
-  position: absolute;
-  background: var(--bubble);
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  opacity: 0.8;
-  animation: float 6s infinite ease-in-out;
-}
-
-button[type="submit"] {
+button {
   background-color: rgb(153, 77, 50);
   color: white;
   padding: 3px 15px;
@@ -91,18 +175,7 @@ button[type="submit"] {
   margin-left: 10px;
 }
 
-button[type="submit"].signup {
-  background-color: #28a745;
-  color: white;
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button[type="submit"].signup:hover {
+button:hover {
   background-color: #218838;
 }
 
@@ -113,4 +186,112 @@ header {
 
 header img {
   max-width: 22%;
+}
+
+/* EVENT PAGE */
+
+/* Table showing guests and food items they are bringing */
+#food-table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.food-item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.guest-food {
+  flex-basis: 50%;
+  align-self: right;
+  align-content: center;
+  text-align: right;
+}
+
+.change-delete {
+  flex-basis: 50%;
+  align-self: left;
+  text-align: left;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.change-delete > form {
+  display: inline-block;
+  padding: 3px 0px 3px 10px;
+  margin-right: 0px;
+}
+
+.change-delete > form > input {
+  width: 100px;
+}
+
+/* form for adding additional item to food table */
+#add-food-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+#add-food-container label {
+  grid-column: 1;
+  text-align: right;
+}
+
+#add-food-container input, #add-food-button {
+  grid-column: 2;
+  width: 200px;
+  margin-left: 0px;
+}
+
+
+/* .eventmenubutton:active {
+  background-color: rgb(153, 77, 50);
+} */
+
+.active {
+  background-color: rgb(89, 43, 51);
+  transition: background-color 0.3s ease;
+}
+
+/* SPECIFIC EVENT PAGE: NAME OF SELECTED EVENT HEADER*/
+.selectedevent {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 50px;
+  font-weight: 550;
+  color: rgb(187, 195, 78);
+}
+
+/* EVENT-SPECIFIC PAGE: "ASSIGN FOODS" TAGLINE */
+.assignfoodstagline {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+/* EVENT-SPECIFIC PAGE: "ASSIGN FOODS" TAGLINE */
+.organizingtagline {
+  margin-top: 70px;
+  margin-bottom: 20px;
+  font-weight: 100;
+}
+
+.neweventform {
+  margin-top: 40px;
+}
+
+.dropdown {
+  width: 200px;
+  display: grid;
 }
