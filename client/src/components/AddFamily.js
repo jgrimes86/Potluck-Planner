@@ -45,14 +45,14 @@ function AddFamily() {
             <Navbar event={event} setUser={setUser} setIsLoggedIn={setIsLoggedIn} />
             <h1 className = "eventdisplaytextfm">{event ? event.name : ""}</h1>
             <h1 className = "addfamilytagline">Add Family Members to Your Event!</h1>
-            <h3 className = "invitedfamtagline">Family Members That Have Been Invited:</h3>
-            <ul>
+            <h3 className = "invitedfamtagline">Your Guest List So Far...</h3>
+            <ul className = "invitedfam">
                 {familyList}
             </ul>
 
-            <AddNewFamilyMember addToJoinTable={addToJoinTable} allFamily={allFamily} setAllFamily={setAllFamily} />
-
             <AllFamilyMembers addToJoinTable={addToJoinTable} allFamily={allFamily} setAllFamily={setAllFamily} />
+
+            <AddNewFamilyMember addToJoinTable={addToJoinTable} allFamily={allFamily} setAllFamily={setAllFamily} />
         </div>
     );
 }

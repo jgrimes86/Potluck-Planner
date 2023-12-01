@@ -54,6 +54,7 @@ function Login() {
   const loginForm = () => {
     return (
       <>
+        <h1 className = "tagline">Helping You Decide Who Brings What.</h1>
         <h1 className="logintitle">User Login</h1>
 
         <form onSubmit={loginFormik.handleSubmit} className="login-form">
@@ -131,8 +132,8 @@ function Login() {
   const signupForm = () => {
     return (
       <>
-        <h1>Signup</h1>
-        <form onSubmit={signupFormik.handleSubmit}>
+        <h1 className = "signuptitle">Signup</h1>
+        <form className = "signupform" onSubmit={signupFormik.handleSubmit}>
           <label htmlFor="firstName">Enter First Name:</label>
           <input
             type="text"
@@ -193,7 +194,7 @@ function Login() {
           />
           <p style={{ color: "red" }}>{signupFormik.errors.email}</p>
 
-          <button type="submit">Submit</button>
+          <button className = "signupsubmit" type="submit">Submit</button>
         </form>
         <button onClick={handleClick}>Go To Login</button>
       </>

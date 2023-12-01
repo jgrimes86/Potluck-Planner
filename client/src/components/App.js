@@ -61,13 +61,16 @@ function App() {
 
   return (
     <div>
-      <header>
+      <header className = "mainpagetitle">
         <h1 className = "Loginheader">POTLUCK</h1>
         <img src={FoodImage} alt="Food" />
         <h1 className = "Loginheader">PLANNER</h1>
       </header>
       <Outlet context={context} />
       {(isLoggedIn && location.pathname === "/events") ? <button onClick={handleLogout}>Log Out</button> : null}
+      <header>
+        <h1 className = "bottom"> Website created by Ed Berisha, Angelus Bootle, and Jim Grimes </h1>
+      </header>
     </div>
   )
 }
