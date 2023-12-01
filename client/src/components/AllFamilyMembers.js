@@ -47,16 +47,21 @@ function AllFamilyMembers({addToJoinTable, setAllFamily, allFamily}) {
 
     ////////////////////// DELETE FAMILY MEMBER ////////////////////////
     function deleteFamilyMember(fm) {
-        fetch('/family_members/'+fm.id, {
+        const shouldDelete = window.confirm("Are you sure you want to delete this family member?");
+      
+        if (shouldDelete) {
+          fetch('/family_members/' + fm.id, {
             method: 'DELETE'
-        })
-        .then(r => {
-            if (r.ok) {
-                setInvitedFamily(invitedFamily.filter(member => {if (member.id !== fm.id) return member}));
-                setAllFamily(allFamily.filter(member => {if (member.id !== fm.id) return member}))
-            }
-        })
-    }
+          })
+            .then(r => {
+              if (r.ok) {
+                setInvitedFamily(invitedFamily.filter(member => member.id !== fm.id));
+                setAllFamily(allFamily.filter(member => member.id !== fm.id));
+              }
+            })
+            .catch(error => console.error("Error deleting family member:", error));
+        }
+      }
 
 
 
