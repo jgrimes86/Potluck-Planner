@@ -12,7 +12,7 @@ class Login(Resource):
         username = request.json['username']
         user = Organizer.query.filter_by(username=username).first()
         session['user_id'] = user.id
-        return make_response(user.to_dict(), 200)
+        return user.to_dict()
 
 api.add_resource(Login, '/login')
 
@@ -28,8 +28,8 @@ class Signup(Resource):
 api.add_resource(Signup, '/signup')
 
 class Logout(Resource):
-    def get(self):
-        session['user_id'] = {}
+    def delete(self):
+        session['user_id'] = None
         return make_response('', 204)
 
 api.add_resource(Logout, '/logout')

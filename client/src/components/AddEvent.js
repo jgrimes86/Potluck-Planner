@@ -13,7 +13,7 @@ function AddEvent({setEvents, events}){
     },
     validationSchema: formikSchema,
     onSubmit: (values) => {
-        fetch("http://localhost:5555/events", {
+        fetch("/events", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

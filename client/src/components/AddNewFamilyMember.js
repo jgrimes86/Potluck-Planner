@@ -22,7 +22,7 @@ function AddNewFamilyMember({addToJoinTable, allFamily, setAllFamily}) {
         validationSchema: addFamilySchema,
         validateOnChange: false,
         onSubmit: values => {
-            fetch('http://localhost:5555/family_members', {
+            fetch('/family_members', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"

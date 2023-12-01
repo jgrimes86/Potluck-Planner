@@ -24,7 +24,7 @@ function Login() {
     validationSchema: loginSchema,
     validateOnChange: false,
     onSubmit: (values) => {
-      fetch("http://localhost:5555/login", {
+      fetch("/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,7 +83,7 @@ function Login() {
     validationSchema: signupSchema,
     validateOnChange: false,
     onSubmit: (values) => {
-      fetch("http://localhost:5555/signup", {
+      fetch("/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

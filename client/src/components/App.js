@@ -21,7 +21,7 @@ function App() {
   console.log(invitedFamily)
 
   useEffect(() => {
-    fetch("http://localhost:5555/check_session").then((r) => {
+    fetch("/check_session").then((r) => {
       if (r.ok) {
         r.json().then((user) => {setUser(user); setIsLoggedIn(true)});
       }
@@ -29,7 +29,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:5555/family_members/'+event.id)
+    fetch('/family_members/'+event.id)
     .then(r => {
         if (r.ok) {
             r.json().then(data => setInvitedFamily(data))
@@ -51,7 +51,7 @@ function App() {
   // }
 
   function handleLogout() {
-    fetch("http://localhost:5555/logout").then((r) => {
+    fetch("/logout").then((r) => {
       if (r.ok) {
         setUser(null);
         setIsLoggedIn(false)

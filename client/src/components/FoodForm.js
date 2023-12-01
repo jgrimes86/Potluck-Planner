@@ -19,7 +19,7 @@ function FoodForm({ eventId, handleNewFood, foods }) {
             familyMemberId: "",
         },
         onSubmit: (values) => {
-            fetch("http://localhost:5555/foods", {
+            fetch("/foods", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

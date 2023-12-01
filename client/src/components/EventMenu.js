@@ -10,7 +10,7 @@ function EventMenu() {
   
 
   useEffect(() => {
-    fetch("http://localhost:5555/events")
+    fetch("/events")
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data)) {
@@ -23,7 +23,7 @@ function EventMenu() {
   }, []);
 
   const handleDelete = (id) => {
-    fetch("http://localhost:5555/events/" + id, {
+    fetch("/events/" + id, {
       method: "DELETE"
     })
     .then (r => {

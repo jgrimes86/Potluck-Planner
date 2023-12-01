@@ -22,7 +22,7 @@ function AddFamily() {
     //     })
     // }, [])
     useEffect(() => {
-        fetch('http://localhost:5555/family_members')
+        fetch('/family_members')
         .then(r => {
             if (r.ok) {
                 r.json().then(data => setAllFamily(data))
@@ -33,7 +33,7 @@ function AddFamily() {
 
     // create new foods table row to link event and family_member
     function addToJoinTable(familyMember) {
-        fetch('http://localhost:5555/foods', {
+        fetch('/foods', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"

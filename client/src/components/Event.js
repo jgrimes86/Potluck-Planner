@@ -14,14 +14,14 @@ function Event() {
   // console.log("Foods:", foods)
 
   useEffect(() => {
-    fetch(`http://localhost:5555/events/${id}`)
+    fetch(`/events/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setEvent(data);
       })
       .catch((error) => console.error("Error fetching event details:", error));
 
-    fetch(`http://localhost:5555/foods?event_id=${id}`)
+    fetch(`/foods?event_id=${id}`)
       .then((response) => response.json())
       .then((data) => {
         setFoods(data);
@@ -32,7 +32,7 @@ function Event() {
   }, []);
 
   function handleDeleteFood(foodId) {
-    fetch(`http://localhost:5555/foods/${foodId}`, {
+    fetch(`/foods/${foodId}`, {
       method: "DELETE",
     })
     .then(r => {
@@ -46,7 +46,7 @@ function Event() {
   }
 
   function handleChangeFood(foodId, food) {
-    fetch(`http://localhost:5555/foods/${foodId}`, {
+    fetch(`/foods/${foodId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"

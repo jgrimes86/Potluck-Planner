@@ -27,7 +27,7 @@ function AllFamilyMembers({addToJoinTable, setAllFamily, allFamily}) {
 
     /////////////////////////// UNINVITE FAMILY MEMBER ///////////////////
     function uninviteFamilyMember(fm) {
-        fetch('http://localhost:5555/uninvite/'+fm.id, {
+        fetch('/uninvite/'+fm.id, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
@@ -47,7 +47,7 @@ function AllFamilyMembers({addToJoinTable, setAllFamily, allFamily}) {
 
     ////////////////////// DELETE FAMILY MEMBER ////////////////////////
     function deleteFamilyMember(fm) {
-        fetch('http://localhost:5555/family_members/'+fm.id, {
+        fetch('/family_members/'+fm.id, {
             method: 'DELETE'
         })
         .then(r => {
