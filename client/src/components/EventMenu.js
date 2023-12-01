@@ -18,14 +18,19 @@ function EventMenu() {
   }, []);
 
   const handleDelete = (id) => {
-    fetch("http://localhost:5555/events/" + id, {
-      method: "DELETE"
-    })
-    .then (r => {
-        if (r.ok) {setEvents(events.filter(event => {
-          if(event.id !== id ) return event
-        }))}
-    })
+    const shouldDelete = window.confirm("Are you sure you want to delete this event?");
+  
+    if (shouldDelete) {
+      fetch("http://localhost:5555/events/" + id, {
+        method: "DELETE"
+      })
+        .then(r => {
+          if (r.ok) {
+            setEvents(events.filter(event => event.id !== id));
+          }
+        })
+        .catch(error => console.error("Error deleting event:", error));
+    }
   }
 
   return (
