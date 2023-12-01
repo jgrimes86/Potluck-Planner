@@ -74,7 +74,7 @@ function AllFamilyMembers({addToJoinTable, setAllFamily, allFamily}) {
         return (
             <li>
                 <span key={fm.id}>{`${fm.first_name}`+" "+`${fm.last_name}`}</span>
-                {isInvited ? <button className = "uninvitebutton" onClick={() => uninviteFamilyMember(fm)}>Uninvite</button> : <button onClick={() => inviteFamilyMember(fm)}>Invite</button>}
+                {isInvited ? <button style={{backgroundColor: "#218838"}} className = "uninvitebutton" onClick={() => uninviteFamilyMember(fm)}>Uninvite</button> : <button onClick={() => inviteFamilyMember(fm)}>Invite</button>}
                 <button className = "deletebutton" onClick={() => {deleteFamilyMember(fm)}}>X</button>
             </li>
             

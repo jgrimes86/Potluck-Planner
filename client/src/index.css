@@ -1,6 +1,5 @@
 /* ALL THINGS */
 * {
-  outline: 1pt dashed red;
   text-align: center;
   color: rgb(223, 226, 226);
   margin: 0;
@@ -11,26 +10,25 @@
 /* LOGIN FORM CONTAINER */
 .login-form {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two columns */
-  /* grid-template-rows: repeat(2, auto); */
-  gap: 10px; /* Adjust the gap between grid items */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }
 
-
 /* LOGIN FORM LABEL */
-.login-form label, #loginsignupbutton {
-  grid-column: 1; /* First column */
-  text-align: right;
+.login-form label,
+#loginsignupbutton {
+  grid-column: 1;
   width: 200px;
+  justify-self: end;
 }
 
 /* LOGIN FORM TEXT INPUT */
-.login-form input, #loginsubmitbutton {
-  grid-column: 2; /* Second column */
+.login-form input,
+#loginsubmitbutton {
+  grid-column: 2;
   width: 200px;
   box-sizing: border-box;
 }
-
 
 /* LOGIN PAGE "LOGIN" TEXT*/
 .logintitle {
@@ -52,10 +50,10 @@ select {
 
 /* FAMILY MEMBER PAGE: "SELECT FAMILY MEMBER..." TEXT */
 .selectfamilymembertext {
-  margin-top: 40px;
+  margin-top: 100px;
   margin-bottom: 20px;
   font-family: "Courier New", Courier, monospace;
-  font-size: 28px;
+  font-size: 24px;
 }
 
 /*  ADD FAMILY MEMBER PAGE: UNORDERED LIST OF FAMILY MEMBERS TO CHOOSE FROM AT BOTTOM OF PAGE */
@@ -63,14 +61,14 @@ select {
   font-family: "Courier New", Courier, monospace;
   display: grid;
   list-style: none;
-  justify-items: right; /* Align all items in the column to the center */
+  justify-items: right;
   width: calc(55%);
   gap: 10px;
 }
 
 /*  ADD FAMILY MEMBER PAGE: EVENT-DISPLAY TEXT ON FAMILY MEMBER PAGE */
 .eventdisplaytextfm {
-  margin-top: 40px;
+  margin-top: 100px;
   margin-bottom: 50px;
   font-family: "Courier New", Courier, monospace;
   font-size: 50px;
@@ -80,7 +78,7 @@ select {
 
 /*  ADD FAMILY MEMBER PAGE: ADD FAMILY MEMBERS TAGLINE */
 .addfamilytagline {
-  margin-top: 20px;
+  margin-top: 100px;
   margin-bottom: 40px;
 }
 
@@ -88,11 +86,16 @@ select {
 .invitedfamtagline {
   margin-top: 20px;
   margin-bottom: 20px;
+  font-family: "Courier New", Courier, monospace;
+  color: rgb(230, 190, 198);
 }
 
 /* ADD FAMILY MEMBER PAGE: INVITED FAMILY FORM TITLE/TAGLINE */
 .invitefamformtagline {
-  margin-top: 20px;
+  margin-top: 100px;
+  font-size: 40px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 24px;
 }
 
 .familymemberoptions button {
@@ -107,7 +110,7 @@ select {
 .deletebutton {
   background: rgb(116, 18, 18);
   width: 20px;
-  padding: 2px; /* Adjust padding as needed */
+  padding: 2px;
   font-size: 8px;
 }
 
@@ -248,16 +251,12 @@ header img {
   text-align: right;
 }
 
-#add-food-container input, #add-food-button {
+#add-food-container input,
+#add-food-button {
   grid-column: 2;
   width: 200px;
   margin-left: 0px;
 }
-
-
-/* .eventmenubutton:active {
-  background-color: rgb(153, 77, 50);
-} */
 
 .active {
   background-color: rgb(89, 43, 51);
@@ -294,4 +293,52 @@ header img {
 .dropdown {
   width: 200px;
   display: grid;
+}
+
+/* MAIN PAGE TITLE AND IMAGE */
+.mainpagetitle {
+  margin-top: 100px;
+}
+
+/* BOTTOM CREDITS */
+.bottom {
+  margin-top: 150px;
+  margin-bottom: 100px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.tagline{
+  margin-top: 0px;
+  margin-bottom: 60px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 20px;
+  font-weight: 500; 
+}
+
+/* SIGN UP FORM */
+.signupform {
+  display: grid;
+  width: 200px;
+  text-align: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.signupform input {
+  margin-bottom: 20px;
+}
+
+.signupsubmit {
+  margin-bottom: 20px;
+}
+
+.signuptitle {
+  margin-bottom: 20px;
+}
+
+.invitedfam {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 30px;
 }
