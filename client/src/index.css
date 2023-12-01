@@ -1,3 +1,12 @@
+/* ALL THINGS */
+* {
+  text-align: center;
+  color: rgb(223, 226, 226);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 /* LOGIN FORM CONTAINER */
 .login-form {
   display: grid;
@@ -63,7 +72,7 @@ select {
   font-size: 28px;
 }
 
-/* FAMILY MEMBER PAGE: UNORDERED LIST OF FAMILY MEMBERS TO CHOOSE FROM AT BOTTOM OF PAGE */
+/*  ADD FAMILY MEMBER PAGE: UNORDERED LIST OF FAMILY MEMBERS TO CHOOSE FROM AT BOTTOM OF PAGE */
 .familymemberoptions {
   font-family: "Courier New", Courier, monospace;
   display: grid;
@@ -71,6 +80,33 @@ select {
   justify-items: right; /* Align all items in the column to the center */
   width: calc(55%);
   gap: 10px;
+}
+
+/*  ADD FAMILY MEMBER PAGE: EVENT-DISPLAY TEXT ON FAMILY MEMBER PAGE */
+.eventdisplaytextfm {
+  margin-top: 40px;
+  margin-bottom: 50px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 50px;
+  font-weight: 550;
+  color: rgb(187, 195, 78);
+}
+
+/*  ADD FAMILY MEMBER PAGE: ADD FAMILY MEMBERS TAGLINE */
+.addfamilytagline {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+/*  ADD FAMILY MEMBER PAGE: INVITED FAMILY MEMBERS TAGLINE */
+.invitedfamtagline {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* ADD FAMILY MEMBER PAGE: INVITED FAMILY FORM TITLE/TAGLINE */
+.invitefamformtagline {
+  margin-top: 20px;
 }
 
 .familymemberoptions button {
@@ -91,15 +127,6 @@ select {
 
 .deletebutton:hover {
   background-color: #ff2420;
-}
-
-* {
-  /* outline: 1px dashed red; */
-  text-align: center;
-  color: rgb(223, 226, 226);
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 }
 
 body {
@@ -174,7 +201,6 @@ header img {
 /* EVENT PAGE */
 
 /* Table showing guests and food items they are bringing */
-
 #food-table {
   display: flex;
   flex-direction: column;
@@ -254,13 +280,13 @@ header img {
   color: rgb(187, 195, 78);
 }
 
-/* SPECIFIC EVENT PAGE: "ASSIGN FOODS" TAGLINE */
+/* EVENT-SPECIFIC PAGE: "ASSIGN FOODS" TAGLINE */
 .assignfoodstagline {
   margin-top: 20px;
   margin-bottom: 40px;
 }
 
-/* SPECIFIC EVENT PAGE: "ASSIGN FOODS" TAGLINE */
+/* EVENT-SPECIFIC PAGE: "ASSIGN FOODS" TAGLINE */
 .organizingtagline {
   margin-top: 70px;
   margin-bottom: 20px;

@@ -42,9 +42,9 @@ function AddFamily() {
     return (
         <div>
             <Navbar event={event} setUser={setUser} setIsLoggedIn={setIsLoggedIn} />
-            <h1>{event ? event.name : ""}</h1>
-            <h1>Add Family Members</h1>
-            <h3>Family Members That Have Been Invited:</h3>
+            <h1 className = "eventdisplaytextfm">{event ? event.name : ""}</h1>
+            <h1 className = "addfamilytagline">Add Family Members to Your Event!</h1>
+            <h3 className = "invitedfamtagline">Family Members That Have Been Invited:</h3>
             <ul>
                 {familyList}
             </ul>
