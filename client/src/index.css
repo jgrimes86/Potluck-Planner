@@ -249,25 +249,29 @@ header img {
 /* form for adding additional item to food table */
 #add-food-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
 
-.label {
+#add-food-container label {
   grid-column: 1;
+  text-align: right;
 }
 
-.input {
+#add-food-container input, #add-food-button {
   grid-column: 2;
   width: 200px;
+  margin-left: 0px;
 }
 
-.eventmenubutton:active {
+
+/* .eventmenubutton:active {
   background-color: rgb(153, 77, 50);
-}
+} */
 
 .active {
   background-color: rgb(89, 43, 51);
+  transition: background-color 0.3s ease;
 }
 
 /* SPECIFIC EVENT PAGE: NAME OF SELECTED EVENT HEADER*/
