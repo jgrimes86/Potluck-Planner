@@ -42,7 +42,7 @@ python app.py
 
 1. In a second terminal, navigate into the client directory and install React components:
 ```
-cd server
+cd client
 npm install
 ```
 
